@@ -1,0 +1,45 @@
+.shop-card {
+  margin: 5px 10px;
+  border-radius: 3px;
+  overflow: hidden;
+  @include tablet {
+    margin: 15px;
+  }
+  &__image {
+    width: 100%;
+    height: 136px;
+    border-radius: 3px;
+    @include image_background;
+    &.no-image {
+      background-color: #e25e6d;
+    }
+  }
+  &__content {
+    padding: 20px 30px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.05);
+    border: solid 1px #f2f2f2;
+    border-top: none;
+  }
+  &__headline {
+    @include text-sm($font-multiplier: 1.22, $line-height: 0.91, $letter-spacing: 0.3px, $color: $heading-text);
+    margin-bottom: 12px;
+  }
+  &__place, &__opening-hour, &__phone {
+    font-family: $text-font-family;
+    @include text-sm($font-multiplier: 0.66, $font-weight: 400, $line-height: 1.33, $letter-spacing: -0.2px, $color: #5c5656);
+  }
+  &__place {
+    margin-bottom: 16px;
+  }
+  &__opening-hours_headline {
+    font-family: $text-font-family;
+    @include text-sm($font-multiplier: 0.66, $font-weight: 700, $line-height: 1.33, $letter-spacing: -0.2px, $color: #5c5656);
+    margin-bottom: 6px;
+  }
+  &__opening-hour {
+    margin-bottom: 1px;
+  }
+  &__phone {
+    margin: 19px 0 28px;
+  }
+}

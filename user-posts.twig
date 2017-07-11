@@ -1,0 +1,46 @@
+{{ set(this, 'title', 'User Profile') }}
+{% set networkData = _Network.getNetworkData() %}
+{% set profileImage =_Media.getMediaUrl(user.media, 500, 500, {crop: 'thumb', gravity: 'face', type:'user'} )%}
+{{this.registerJs("UserArticlesController.load()")}}
+{% set limit = 5 %}
+<div class="user-posts">
+    <div class="user-posts-sidebar__wrap">
+        <div class="user-posts-sidebar">
+            <div class="user-posts-sidebar__picture" {% if profileImage is not empty %}  style="background-image:url({{profileImage}});"{% endif %}></div>
+            <div class="user-posts-sidebar__name">{{Html.encode(user.firstname)}} {{Html.encode(user.lastname)}}</div>
+            <span class="user-posts-sidebar__description">{{Html.decode(user.bio) | raw }}</span>
+            <div class="user-posts-sidebar__button-wrap">
+                {% if not _User.isGuest() and _User.getId() != user.id and not _Network.isNetworkClosed(networkData)%}
+                    {% set isUserFollowing = _User.isUserFollowing('user', user.id)  %}
+                    <a href="javascript:void(0);" class="button button--sm button--outline button__follow-user-posts FollowProfileUser"  data-guid="{{user.guid}}" data-status="{% if isUserFollowing == 'TRUE' %}unfollow{% else %} follow {% endif %}">{% if isUserFollowing == 'TRUE' %} Unfollow {% else %} Follow {% endif %}</a>
+                {% endif %}
+                <div class="button button--sm button__share">
+                    <span>Share</span>
+                    {{this.render('partials/article/_share-modal.twig', {url : _AppHelper.getServerUrl()}) | raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="user-posts__section">
+        <div class="user-posts__activity">
+            {% if userArticles|length > 0 %}
+                <div class="card-container">
+                    <div class="card-row">
+                        {% for i in 0..(userArticles|length - 1) %}
+                            {% if userArticles[i] is defined %}
+                                {{this.render('partials/_single-article.twig', {article: userArticles[i], 'position': (i+1), containerClass: 'col-third'}) | raw}}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <p class="no-data ">No article(s) created yet.</p>
+            {% endif %}
+        </div>
+        <div class="text-center">
+            {% if userArticles|length >= limit %}
+                <a href="javascript:void(0)" class="button loadMoreArticles"><i class="fa fa-arrow-down"></i>&nbsp;Load More</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

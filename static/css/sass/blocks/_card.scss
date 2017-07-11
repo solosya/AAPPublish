@@ -1,0 +1,415 @@
+.card {
+  display: flex;
+  position: relative;
+  @include image_background;
+  margin: 5px 10px 5px;
+  @include tablet {
+    margin: 15px;
+    height: 400px;
+  }
+  &__overlay {
+    display: flex;
+    height: 100%;
+    width: 100%;
+  }
+  &:hover {
+    .admin-actions {
+      display: flex;
+    }
+    .card__image_overlay {
+      background-color: rgba(249, 249, 249, 0.3);
+    }
+    .card__headline {
+      color: #625f5f;
+    }
+  }
+  &__content-wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    max-height: 400px;
+  }
+  &__content {
+    flex-direction: column;
+    display: flex;
+    width: 100%;
+    text-align: left;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 18px 10px 25px;
+    height: 250px;
+    @media (min-width: 735px) {
+      padding: 18px 20px 25px;
+    }
+  }
+  &__channel-wrap {
+    text-align: left;
+  }
+  &__image {
+    height: 150px;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    align-items: center;
+    @include image_background;
+    &_overlay {
+      @include transition(all $transition-duration ease);
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background-color: transparent;
+    }
+  }
+  &__play-button {
+    width: 76px;
+    height: 76px;
+  }
+  &__channel {
+    @include channel;
+    margin-bottom: 15px;
+  }
+  &__headline {
+    @include transition(all $transition-duration ease);
+    @include text-md($color: $heading-text, $font-multiplier: 1.22, $line-height: 1.14, $letter-spacing: -0.3px);
+    margin-bottom: 10px;
+    word-break: normal;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    max-width: 100%;
+  }
+  &__text {
+    @include text-md($font-multiplier: 0.78, $line-height: 1.29, $font-weight: 400);
+    word-break: normal;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    margin-bottom: 10px;
+    max-width: 100%;
+    @include tablet-lg {
+      display: block;
+    }
+    &-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  .card__play-button {
+    width: 50px;
+    height: 50px;
+  }
+  &__info {
+    margin-top: auto;
+  }
+  &__read-time {
+    display: none;
+  }
+  &__author-image {
+    display: none;
+  }
+  &__author {
+    @include text-sm($color: rgba(32, 32, 32, 0.8), $letter-spacing: -0.1px, $font-weight: 400);
+  }
+  &__info_separator {
+    display: none;
+  }
+  .button {
+    display: none;
+  }
+  &--channel {
+    .card {
+      &__headline {
+        margin: 0;
+      }
+      &__text {
+        display: block;
+      }
+      &__content-wrap {
+        min-height: 471px;
+        align-items: center;
+      }
+      &__content {
+        height: auto;
+      }
+    }
+  }
+  &--social {
+    .card__author {
+      @include transition(color $transition-duration ease);
+      &:hover {
+        color: #e25e6d;
+      }
+    }
+  }
+  &__no-image {
+    .card__image {
+      display: none;
+    }
+    .card__content {
+      height: 400px;
+    }
+    @include tablet {
+      .card__channel-wrap {
+        margin-top: 20px;
+      }
+    }
+  }
+}
+
+.col-third, .col-half {
+  .card {
+    background: transparent!important;
+    &__content {
+      box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.05);
+      border: solid 1px #f2f2f2;
+    }
+  }
+}
+
+.col-third {
+  .card__no-image {
+    .card__content {
+      @media (max-width: 480px) {
+        height: auto;
+        min-height: 250px;
+      }
+    }
+  }
+}
+
+.col-full {
+  .card {
+    height: 350px;
+    margin-left: 0;
+    margin-right: 0;
+    @include tablet {
+      height: 420px;
+    }
+    &:hover {
+      .card__overlay {
+        background-color: rgba(249, 249, 249, 0.3);
+        box-shadow: inset 0 -53px 59px 0 rgba(0, 0, 0, 0.22);
+      }
+      .card__headline {
+        color: #fff;
+      }
+      .button {
+        background-color: #eb7986;
+        border: solid 2px #eb7986;
+      }
+      .card__no-image {
+        .button {
+          background-color: transparent;
+          color: white;
+        }
+      }
+    }
+    &__overlay {
+      padding-left: 10px;
+      padding-right: 10px;
+      @include transition(all $transition-duration ease);
+      box-shadow: inset 0 -53px 59px 0 rgba(0, 0, 0, 0.4);
+    }
+    &__content {
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    &__image {
+      display: none;
+    }
+    &__channel {
+      font-size: 16px;
+      color: #f9f9f9;
+      letter-spacing: 1.5px;
+      padding-left: 17px;
+      margin-bottom: 25px;
+      &::before {
+        top: 4px;
+        width: 10px;
+        height: 10px;
+      }
+    }
+    &__headline {
+      @include text-lg($line-height: 1.11, $font-multiplier: 2, $letter-spacing: -0.3px);
+      text-shadow: 0 0 12px rgba(32, 32, 32, 0.5);
+      max-height: 141px;
+      width: 100%;
+      max-width: 660px;
+      margin: 0 auto 39px;
+      overflow: hidden;
+      text-align: center;
+      // Padding for text shadow
+      padding: 5px;
+      @include tablet {
+      }
+    }
+    &__info {
+      display: none;
+    }
+    &__text {
+      display: none;
+    }
+    &__no-image {
+      background-color: #e25e6d!important;
+      .button {
+        background-color: white;
+        border: 1px solid white;
+        color: $theme-color;
+        &:hover {
+          background-color: transparent;
+          color: white;
+        }
+      }
+    }
+  }
+  .button {
+    display: inline-block;
+  }
+  @include tablet {
+    .card {
+      &__headline {
+        @include text-lg($line-height: 1.09, $font-multiplier: 3.055, $letter-spacing: -0.4px);
+        text-shadow: 0 0 12px rgba(32, 32, 32, 0.5);
+        max-height: 180px;
+        overflow: hidden;
+        padding-bottom: 3px;
+        margin-bottom: 41px;
+      }
+      .button {
+        // Defined without mixin because of color
+        line-height: 0.73;
+        font-size: 15px;
+        letter-spacing: 0.1px;
+        padding: 14px 24px;
+      }
+    }
+  }
+}
+
+.col-full--hero {
+  .card {
+    height: 391px;
+    margin: 0px;
+    @include tablet {
+      height: 550px;
+    }
+    @include desktop {
+      height: 709px;
+    }
+    &__overlay {
+      display: flex;
+      align-items: flex-end;
+      padding: 56px 10px 0;
+      box-shadow: inset 0 -99px 61px 0 rgba(0, 0, 0, 0.4);
+      @include tablet {
+        padding-top: 82px;
+      }
+    }
+    &__content {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 27px;
+      justify-content: flex-start;
+      align-self: flex-end;
+      margin-top: auto;
+      height: auto;
+      @include tablet {
+        justify-content: flex-end;
+      }
+    }
+    &__channel {
+      margin-bottom: 16px;
+      margin-top: 42px;
+    }
+    &__headline {
+      margin-bottom: 27px;
+      @include tablet {
+      }
+    }
+    &__info {
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      @include tablet {
+        margin-top: 0px;
+      }
+    }
+    &__read-time {
+      display: inline-block;
+      @include text-sm($font-multiplier: 0.78, $color: white, $letter-spacing: 0.5px, $font-weight: 400);
+      text-shadow: 0 0 3px #36363c;
+      text-transform: uppercase;
+      line-height: 1.20;
+    }
+    &__author-wrap {
+      display: flex;
+      align-items: center;
+      @include image_background;
+    }
+    &__author-image {
+      display: inline-block;
+      width: 23px;
+      height: 23px;
+      margin-right: 7px;
+      border-radius: 100%;
+    }
+    &__author {
+      font-size: 16px;
+      color: #f9f9f9;
+      line-height: 1;
+    }
+    &__info_separator {
+      display: block;
+      width: 2px;
+      height: 23px;
+      background-color: transparent;
+      margin: 0 5px 0 5px;
+    }
+  }
+  @include tablet {
+    .card {
+      &__channel-wrap {
+        margin-bottom: 20px;
+      }
+      &__channel {
+        margin-bottom: 0;
+        margin-top: 0;
+      }
+      &__headline {
+        @include text-lg($line-height: 1.07, $font-multiplier: 3.888, $letter-spacing: -0.5px);
+        max-height: 225px;
+        overflow: hidden;
+        padding-bottom: 3px;
+        margin-bottom: 38px;
+        max-width: 830px;
+      }
+      &__info {
+        margin-bottom: 29px;
+      }
+      .button {
+        padding: 8px 10px 7px;
+        line-height: 0.92;
+        font-size: 12px;
+        border-radius: 3px;
+        margin-bottom: 29px;
+      }
+    }
+  }
+  @include desktop {
+    .card {
+      &__headline {
+
+      }
+    }
+  }
+}

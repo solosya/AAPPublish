@@ -1,0 +1,427 @@
+.article, .static-page {
+    @include desktop {
+        padding: 0;
+    }
+    img {
+        width: 100%;
+        margin-top: 30px;
+        margin-bottom: 60px;
+        position: relative;
+        z-index: 20;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        color: $body-text;
+    }
+    h1 {
+        @include text-lg($color: $heading-text, $font-multiplier: 3, $line-height: 0.83);
+        margin-bottom: 27px;
+        @include tablet {
+            @include text-lg($color: $heading-text);
+        }
+    }
+    h2 {
+        @include text-lg($color: $heading-text, $line-height: 1.21, $font-weight: 700, $font-multiplier: 1.556);
+        margin-bottom: 27px;
+    }
+    h3 {
+        @include text-lg($color: $heading-text, $line-height: 1.25, $font-weight: 500, $font-multiplier: 1.335);
+        margin-bottom: 27px;
+    }
+    h4 {
+        @include text-lg($color: $heading-text, $line-height: 1.24);
+        margin-bottom: 27px;
+    }
+    p {
+        @include text-md($color: $body-text, $line-height: 1.35, $font-weight: 400, $letter-spacing: -0.5px, $font-multiplier: 1.112);
+        font-family: $text-font-family;
+        margin-bottom: 27px;
+    }
+    p + ol, p + ul {
+        color: $article-body-text;
+    }
+    small {
+        color: #72787c;
+        font-size: 13px;
+    }
+    li {
+        @include text-md($color: $article-body-text, $line-height: 1.5, $font-weight: 400);
+    }
+    ol, ul {
+        overflow: hidden;
+        margin-bottom: 20px;
+        padding-left: 25px;
+        li {
+            width: 100%;
+            float: left;
+            list-style-position: outside;
+            padding-left: 7px;
+            margin-bottom: 10px;
+            > p {
+                margin-bottom: 0px; 
+            }
+        }
+    }
+    ul li {
+        list-style-type: disc;
+        span {
+            position: relative;
+            left: -22px;
+        }
+    }
+    ol li {
+        list-style-type: decimal;
+    }
+    /* img {
+        width: calc(100% + 20px) !important;
+        margin-left: -10px;
+        margin-right: -10px;
+        height: auto !important;
+        @include desktop {
+            width: 1170px !important; 
+            height: auto !important;
+            margin-top: 30px;
+            margin-bottom: 60px;
+            margin-left: -200px;
+            margin-right: -200px;
+        }
+    } */
+    img {
+        width: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+        height: auto !important;
+        @include desktop {
+            margin-top: 30px;
+            margin-bottom: 60px;
+        }
+    }
+    figure {
+        position: relative;
+        margin-top: 30px;
+        margin-bottom: 60px;
+        float: left;
+        img {
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+        figcaption {
+            width: 100%;
+            margin-left: 0px;
+            margin-right: 0px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: rgba($black, 0.7) none repeat scroll 0 0;
+            color: $white;
+            z-index: 30;
+            padding: 10px 20px;
+            /* @include desktop {
+                width: 1170px !important;
+                margin-left: -200px;
+                margin-right: -200px;
+            }  */
+        }
+    }
+    &__intro, &__intro p {
+        @include text-md($font-multiplier:1.33, $line-height: 1.42);
+        margin-bottom: 30px;
+    }
+    blockquote {
+        padding-left: 30px;
+        margin-bottom: 27px;   
+    }
+}
+
+.article {
+    &__image {
+        height: 100%;
+        .slides {
+            height: 100%;
+        }
+        .slick-list {
+            height: 100%;
+        }
+        .slick-track {
+            height: 100%;
+        }
+        .slide {
+            height: 100%;
+        }
+        .slick-dots {
+            position: absolute;
+            z-index: 1;
+            opacity: 0.99;
+            margin-right: 20px;
+            top: 250px;
+            @include tablet {
+                top: 370px;
+            }
+            @include tablet-lg {
+                top: 355px;
+            }
+            @include desktop {
+                top: 420px;
+            }
+        }
+        &_container {
+            position: absolute;
+            z-index: 0;
+            height: 500px;
+            width: calc(100%);
+            overflow: hidden;
+            margin-bottom: 90px;
+            @include tablet {
+                height: 600px;
+            }
+            @include tablet-lg {
+                height: 600px;
+            }
+            @include desktop {
+                width:100%;
+                height: 690px;
+            }
+            @include desktop-lg {
+                height: 690px;
+            }
+        }
+    }
+    &__header {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        text-align: center;
+        z-index: 1;
+        width: 80%;
+        opacity: 0.99;
+        margin: 0 auto;
+        @include image-background;
+        height: 500px;
+        @include tablet {
+            height: 600px;
+        }
+        @include tablet-lg {
+            height: 600px;
+        }
+        @include desktop {
+            height: 690px;
+        }
+        @include desktop-lg {
+            height: 690px;
+        }
+        &_color-container {
+            background-color: $theme-color;
+            width: 100%;
+        }
+    }
+    &__header-text {
+        margin: 0px 0px 74px;
+        max-width: 100%;
+    }
+    &__channel {
+        @include channel;
+        @include text-md($color: $white, $font-weight: 500, $font-multiplier: 0.889, $line-height: 1, $letter-spacing: 1.5px);
+        margin-bottom: 31px;
+        text-transform: uppercase;
+        &:before {
+            width: 10px;
+            height: 10px;
+            top: 2px;
+            left: -4px;
+        }
+    }
+    &__headline {
+        text-shadow: 0 0 12px rgba(32, 32, 32, 0.5);
+        max-width: 770px;
+        overflow: hidden;
+        @include text-lg($color: $white, $font-multiplier: 2.2, $line-height: 1.1);
+        margin-bottom: 27px;
+        max-height: 250px;
+        @include tablet {
+            max-height: 295px;
+        }
+        @include desktop {
+            max-height: 370px;
+        }
+        @include tablet {
+            @include text-lg($color: $white, $letter-spacing: -0.5px);
+        }
+    }
+    &__info {
+        @extend .container;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: $white;
+        &_container {
+            position: relative;
+            width: 100%;
+            z-index: 1;
+            background: $white;
+        }
+        &_author-image {
+            display: block;
+            z-index: 10;
+            height: 42px;
+            width: 42px;
+            border: 2px solid white;
+            border-radius: 100%;
+            background-size: cover;
+            margin-top: -20px;
+            margin-bottom: 6px;
+        }
+        &_author {
+            @include text-md($color: $body-text, $font-weight: 500, $font-multiplier: 0.889, $line-height: 1, $letter-spacing: 0.2px);
+            @include image-background;
+            margin-bottom: 19px;
+            display: block;
+        }
+        &_follow {
+            padding: 7px 20px;
+            margin-bottom: 26px;
+        }
+        &_tabs {
+            display: flex;
+            padding: 7px 0px;
+            box-shadow: 0 0 15px 0 rgba(32, 32, 32, 0.03);
+            border: solid 1px #f3f3f3;
+        }
+        &_tab {
+            @include text-md($color: #535659, $font-weight: 800, $font-multiplier: 0.667, $line-height: 1, $letter-spacing: -0.2px);
+            display: inline-block;
+            text-align: center;
+            padding: 6px 20px;
+            border-right: 1px solid #eceaea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:last-child {
+                border: none;
+            }
+            @include mobile {
+                @include text-md($color: #535659, $font-weight: 300, $font-multiplier: 0.778, $line-height: 1, $letter-spacing: -0.2px);
+            }
+            &--comments {
+                @include text-md($color: #515356, $font-weight: 500, $font-multiplier: 0.667, $line-height: 1, $letter-spacing: -0.2px);
+
+                @include mobile {
+                    @include text-md($color: #515356, $font-weight: 500, $font-multiplier: 0.778, $line-height: 1, $letter-spacing: -0.2px);
+                }
+            }
+        }
+    }
+    &__social-links {
+        margin-top: 22px;
+        display: flex;
+        justify-content: space-between;
+        width: 109px;
+        z-index: 40; 
+        margin: 22px auto 0px;
+        @include tablet {
+            position: absolute;
+            flex-direction: column;
+            top: -110px;
+            left: 20px;
+            a {
+                display: block;
+                margin-bottom: 9px;
+            }
+        }
+        a {
+            display: inline-block;
+            background: $heading-text;
+            border-radius: 100%;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            &:hover {
+                background: #5c5656;
+                .fa {
+                    color: $white;
+                }
+            }
+        }
+        .fa {
+            @include transition(all $transition-duration ease);
+            font-size: 14px;
+            color: $white;
+        }
+    }
+    &__container {
+        width: 100%;
+        position: relative;
+        background: $white;
+        padding: 0px 10px;
+        margin: 0 auto;
+        float: left;
+        @include tablet {
+            padding: 0px 20px;
+        }
+        @include desktop {
+            padding: 0px 0px;
+        }
+    }
+    &__content {
+        position: relative;
+        background: $white;
+        max-width: 770px;
+        padding: 57px 0px 0px;
+        margin: 0px auto 100px;
+        a:not(.is-btn-ghost1, .is-btn-ghost2, .btn) {
+            border-bottom: 1px solid $body-text !important;
+            color: $body-text !important;
+            &:hover, &:focus {
+                color: $theme-color !important;
+                border-color: $theme-color !important;
+            }
+        } 
+    }
+    &__comments {
+        margin-top: 140px;
+        margin-bottom: 100px;
+    }
+    &__related-title {
+        @include text-md($color: $article-body-text, $font-multiplier: 1.33, $font-weight: 700, $line-height: 1.42, $letter-spacing: -0.2px);
+        margin: 0px 10px;
+        padding: 24px 0px 19px;
+        text-align: center;
+        border-top: solid 1px #e6e6e6;
+        width: 100%;
+        @include mobile {
+            margin: 0px 15px;
+            padding: 37px 0px 34px;
+        }
+        &_container {
+            @extend .container;
+        }
+    }
+
+    &__related-container {
+        margin-bottom: 28px;
+        @include mobile {
+            margin-bottom: 78px;
+        }
+    }
+    .article__follow-button {
+        position: relative;
+        top: 1px;
+    }
+}
+
+.comments__header {
+    margin: 10px auto;
+    padding-top: 100px;
+    text-align: center;
+}
+
+.show-comments__wrap {
+    text-align: center;
+}
+
+.DisqusCommentArea {
+    width:100%;
+    margin-top:40px;
+    display:inline-block;
+    border-top:2px solid rgba($hover-color, 0.75);
+}

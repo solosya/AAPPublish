@@ -1,0 +1,55 @@
+.channel {
+  width: 100%;
+  padding-bottom: 40px;
+	&__header {
+    @extend .container;
+    display: flex;
+    text-align: center;
+    padding: 110px 0px 24px;
+    margin-bottom: 25px;
+    @include tablet {
+      padding: 170px 0px 24px;
+    }
+    &_container {
+      background-color: #f6a623;
+    }
+    &_text {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0px 10px;
+      @include mobile {
+        flex-direction: row;
+      }
+      @include tablet {
+        padding: 0px 20px 0px 20px;
+      }
+      @include desktop {
+        padding: 0px 0px 0px 0px;
+      }
+      h1 {
+        @include text-lg($font-multiplier: 3, $line-height: 0.9);
+        position: relative;
+        top: 2px;
+        margin-bottom: 18px;
+        @include mobile {
+          margin-bottom: 0px;
+        }
+        @include tablet {
+          position: static;
+          @include text-lg();
+        }
+      }
+    }
+  }
+  &__button {
+    margin: auto 0px auto;
+    border-width: 2px;
+    &:hover {
+      background: white;
+      color: #f6a623;
+    }
+  }
+}

@@ -1,0 +1,118 @@
+.card__product {
+  display: flex;
+  flex-direction: column;
+  background: #d0cac3;
+  margin: 15px;
+  padding: 17px 38px 28px;
+  max-height: 502px;
+  min-height: 502px;
+  background-color: #ffffff;
+	box-shadow: 0 0 5px 2px rgba(32, 32, 32, 0.02);
+	border: solid 1px #f1f1f1;
+  @include transition(all $transition-duration ease);
+  &:hover {
+    background: rgba(#f1f1f1, 0.6);
+    border-color: rgba($theme-color, 0.3);
+  }
+  &__image {
+    width: 100%;
+    height: 304px;
+    @include image-background();
+  }
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 27px 0px 0px;
+    height: 100%;
+    text-align: center;
+  }
+  &__category {
+    @include text-md($color: rgba(32, 32, 32, 0.8), $letter-spacing: 0.8px, $font-multiplier: 0.667, $font-weight: 500);
+    text-transform: uppercase;
+    margin-bottom: 11px;
+    width: 100%;
+  }
+  &__title {
+    @include text-md($color: $heading-text, $font-multiplier: 1.223, $font-weight: 700, $line-height: 1.14)
+    margin-bottom: 20px;
+    height: 50px;
+    overflow: hidden;
+    max-width: 150px;
+  }
+  &__price {
+    @include text-md($color: #e25e6d, $font-weight: 500);
+    align-self: flex-end;
+    width: 100%;
+  }
+}
+
+.card__product-half {
+  display: flex;
+  flex-direction: column;
+  background: #d0cac3;
+  margin: 15px;
+  padding: 17px 38px 21px;
+  flex: 1 0;
+  align-items: center;
+  text-align: center;
+  background-color: #ffffff;
+	box-shadow: 0 0 5px 2px rgba(32, 32, 32, 0.02);
+	border: solid 1px #f1f1f1;
+  @include transition(all $transition-duration ease);
+  @include tablet {
+    flex-direction: row;
+    text-align: left;
+    max-height: 502px;
+    min-height: 502px;
+    align-items: flex-start;
+  }
+  &:hover {
+    background: rgba(#f1f1f1, 0.6);
+    border-color: rgba($theme-color, 0.3);
+  }
+  &__image {
+    width: 100%;
+    height: 461px;
+    @include image-background();
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 350px;
+    flex: 1 0 auto;
+    margin: 52px 0px 0px 0px;
+    @include tablet {
+      width: 228px;
+      margin: 52px 0px 0px 36px;
+      align-items: flex-start;
+    }
+  }
+  &__category {
+    @include text-md($color: rgba(32, 32, 32, 0.8), $letter-spacing: 0.8px, $font-multiplier: 0.667, $font-weight: 500);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  &__title {
+    @include text-md($color: $heading-text, $font-multiplier: 1.223, $font-weight: 700, $line-height: 1.29)
+    margin-bottom: 30px;
+  }
+  &__text {
+    @include text-md($color: $body-text, $font-multiplier: 0.778, $font-weight: 500, $line-height: 1.14, $letter-spacing: -0.2px)
+    font-family: $text-font-family;
+    margin-bottom: 35px;
+    max-width: 100%;
+    padding: 0px 30px;
+    @include tablet {
+      margin-bottom: 55px;
+      padding: 0px;
+    }
+  }
+  &__price {
+    @include text-md($color: #e25e6d, $font-weight: 500);
+    margin-bottom: 18px;
+  }
+}

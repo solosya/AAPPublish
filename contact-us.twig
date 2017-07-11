@@ -1,0 +1,40 @@
+{{ set(this, 'title', 'Contact Us') }}
+
+{% set network = _Network.getNetworkData() %}
+
+<div class="contact">
+    <div class="contact__header" style="background-image: url('{{network.templatePath}}/static/images/contact-header-image.jpg')">
+        <div class="contact__header_overlay">Contact Us</div>
+    </div>
+    <div class="contact__container">
+        {% set businessDetails = _Blog.getHomeBlogSettings() %}
+        <div class="contact__content_wrap">
+            <div class="contact__content">
+                <div class="contact__text">Please fill out the form and we&rsquo;ll get back to you.</div>
+                <div class="contact__details">
+                    <div class="contact__number">
+                        <div class="contact__number_title">Phone</div>
+                        <div class="contact__number_text">Phone: {{businessDetails.contact['phone']}}</div>
+                    </div>
+                    <div class="contact__address">
+                        <div class="contact__address_title">Address</div>
+                        <div class="contact__address_text">{{businessDetails.contact['address']}}<br />
+                            {{businessDetails.contact['city']}}, {{businessDetails.contact['state']}}<br />
+                            {{businessDetails.contact['country']}},{{businessDetails.contact['postcode']}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contact__form-container">
+            <form class="contact__form" id="contactForm" name="contactForm" action="{{_AppHelper.getContactFormUrl()}}" method="post" autoComplete="off">
+                <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
+                <input type="text" name="name" placeholder="NAME"  class="contact__form_control">
+                <input type="email" name="email" id="contactform-email" placeholder="EMAIL" class="contact__form_control">
+                <input type="text" name="phone" placeholder="PHONE" class="contact__form_control">
+                <textarea type="text" name="message" placeholder="MESSAGE" class="contact__form_textarea" id="contactMessage"></textarea>
+                <button type="submit" href="#" class="button button--md contact__submit">SEND</button>
+            </form>
+        </div>
+    </div>
+</div>

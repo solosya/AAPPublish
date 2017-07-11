@@ -1,0 +1,61 @@
+{# Channel Twig template #}
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
+
+{% set blogInfo = _Blog.getBlog() %}
+
+{% set mediaCoverImage = ''%}
+{%if blogInfo.media['cover']['id'] is defined and blogInfo.media['cover']['id'] is not empty%}
+    {% set mediaCoverImage = _Media.getMediaUrl(blogInfo.media['cover'], 1160, 600, {crop: 'fill'}) %}  
+{% endif%}
+
+{% set limit = 21 %}
+{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
+{% set articles = articlesArr.articles %}
+{% set network = _Network.getNetworkData() %}
+
+{{this.registerJs("HomeController.listing();")}}
+<div class="channel {{blogInfo.title}}">
+    <div class="channel__header_container">
+        <div class="channel__header">
+            <div class="channel__header_text">
+                <h1>{{blogInfo.title}}</h1>
+                {% if not _Network.isNetworkClosed(network)%}
+                    {% if not _User.isGuest %}
+                        {% set isUserFollowingBlog = _User.isUserFollowing('blog', blogInfo.id) %}
+                        {% if isUserFollowingBlog %}
+                            <div class="button button--white button--outline channel__button followBlog" data-status="unfollow"  data-guid="{{blogInfo.guid}}">Following</div>
+                        {% else %}
+                            <div  class="button button--white button--outline channel__button followBlog" data-status="follow"  data-guid="{{blogInfo.guid}}">Follow</div>
+                        {% endif %}
+                    {% else %}
+                        <div  class="button button--white button--outline channel__button forceLoginModal">Follow</div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- Article Listing Here -->
+    <div class="card-container">
+        <div class="card-row ajaxArticles" data-existing-nonpinned-count="{{articlesArr.existingNonPinnedCount}}" data-offset="{{limit}}">
+            {% for i in 0..(articles|length-1) %}
+                {% if articles[i] is defined %}
+                    {{this.render('partials/_single-article.twig', {article: articles[i], 'position': (i+1), containerClass: 'col-third'}) | raw}}
+                {% endif %}
+            {% endfor %}
+            {% set noDataCls = 'hide' %}
+            {% if articles|length == 0 %}
+                {% set noDataCls = '' %}
+            {% endif %}
+            <div class="col-full text-center has-margin-bottom-40 {{noDataCls}} NoArticlesMsg">
+                <p class="no-data text-center">No articles found.</p>  
+            </div>
+        </div>
+    </div>
+    <div class="text-center has-margin-bottom-40">
+        {% if articles|length >= limit %}
+            <a href="javascript:void(0)" class="button loadMoreArticles button__profile-follow"><i class="fa fa-arrow-down"></i> Load More</a>
+        {% endif %}
+    </div>
+</div>
+
+

@@ -1,0 +1,37 @@
+.view-all {
+	padding: 60px 0px 0px;
+	@extend .container;
+	flex-direction: column;
+}
+
+.view-all-header {
+	display: flex;
+	justify-content: center;
+	border-bottom: 1px solid #dcdbdb;
+	margin: 0px 10px;
+	@include tablet {
+		margin: 0px 20px;
+	}
+	@include desktop {
+		margin: 0px;
+	}
+	&__tab {
+		display: inline-block;
+		width: 105px;
+		text-align: center;
+		margin-bottom: 1px;
+		&_link {
+			@include text-md($color: rgba(#5c5656, 0.8), $font-multiplier: 1.223, $font-weight: 500);
+			background-color: none!important;
+			&:hover {
+				color: $header-color;
+			}
+		}
+		&.active {
+			.view-all-header__tab_link {
+				@include text-md($color: $header-color, $font-multiplier: 1.223, $font-weight: 700);
+				border-bottom: 2px solid $theme-color;
+			}
+		}
+	}
+}

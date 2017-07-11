@@ -1,0 +1,125 @@
+// Responsive sizes
+@mixin mobile {
+  @media (min-width:$screen-xs) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width:$screen-sm) {
+    @content;
+  }
+}
+
+@mixin tablet-lg {
+  @media (min-width:992px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width:$screen-md) {
+    @content;
+  }
+}
+
+@mixin desktop-lg {
+  @media (min-width:$screen-lg) {
+    @content;
+  }
+}
+
+// Default image settings when used as a css background
+@mixin image_background {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+@mixin text-sm($letter-spacing: 0px, $color: $heading-text, $font-weight: 500, $line-height: 1.25, $font-multiplier: 0.666) {
+  font-size: ($baseFontSize * $font-multiplier);
+  font-weight: $font-weight;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  color: $color;
+}
+
+// Lovely mixins for making all your font needs delightful
+@mixin text-md($letter-spacing: -0.025em, $color: $body-text, $font-weight: 700, $line-height: 1.35, $font-multiplier: 1.11) {
+  font-size: ($baseFontSize * $font-multiplier);
+  font-weight: $font-weight;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  color: $color;
+}
+
+@mixin text-lg($letter-spacing: -0.00277em, $color: $white, $font-weight: 900, $line-height: 1.07, $font-multiplier: 3.88) {
+  font-size: ($baseFontSize * $font-multiplier);
+  font-weight: $font-weight;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  color: $color;
+  font-family: $heading-font-family
+}
+
+@mixin channel {
+  @include text-sm($color: rgba(32, 32, 32, 0.8), $letter-spacing: 0.8px);
+  display: inline-block;
+  position: relative;
+  text-transform: uppercase;
+  padding-left: 13px;
+  &::before {
+    content: '';
+    width: 6px;
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 3px;
+    height: 6px;
+    background-color: #47e4c2;
+    border-radius: 100%;
+  }
+}
+
+@mixin card-text-color($color: $body-text) {
+  .card {
+    &__author {
+      color: $color;
+    }
+    &__headline {
+      color: $color;
+    }
+    &__text {
+      color: $color;
+    }
+  }
+}
+
+// Select box appearance mixin
+
+@mixin appearance($border-radius: 0px) {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-border-radius: $border-radius;
+}
+
+// Helper text classes for quick bootstrapping of fonts
+.text-sm {
+  @include text-sm;
+}
+
+.text-md {
+  @include text-md;
+}
+
+.text-lg {
+  @include text-lg;
+}
+
+.visible_desktop {
+  display: none;
+  @include desktop {
+    display: block;
+  }
+}

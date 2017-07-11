@@ -1,0 +1,44 @@
+.search {
+  padding: 91px 0 100px;
+  &__heading {
+    @include text-md($color: $heading-text, $letter-spacing: -0.3px, $font-multiplier: 1.667, $font-weight: 700, $line-height: 1.1);
+    margin-bottom: 49px;
+    margin-left: 10px;
+    @include tablet {
+      margin-left: 100px;
+    }
+  }
+  &__error {
+    @include text-md($color: $heading-text, $letter-spacing: -0.2px, $font-weight: 500, $line-height: 1.22);
+    margin-top: 23px;
+    margin-bottom: 19px;
+    width: 100%;
+    text-align: center;
+    .head {
+        text-align: center;
+        width: 100%;
+        @include text-md($color: $heading-text, $font-multiplier: 2.5, $letter-spacing: -0.2px, $font-weight: 500, $line-height: 1.22);
+    }
+  }
+  &__button {
+    padding: 7px 10px;
+    margin: 0 auto;
+  }
+  &__image {
+      text-align: center;
+      width: 100%;
+      img {
+          height: 40px;
+      }
+  }
+  &__query {
+    display: inline-block;
+    font-style: italic;
+    margin-left: 6px;
+    font-weight: 400;
+  }
+  &__card-container {
+    @extend .card-container;
+  }
+
+}

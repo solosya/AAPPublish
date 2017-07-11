@@ -1,0 +1,79 @@
+.blog {
+  &__headline-container {
+    width: 100%;
+    @include image_background;
+    &.no-image {
+      background-color: #e25e6d;
+    }
+  }
+  &__headline-overlay {
+    padding: 60px 10px 25px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.0), rgba(0, 0, 0, 0.5));
+    @include tablet {
+      height: 500px;
+      padding: 91px 15px 40px;
+    }
+    @include desktop {
+      height: 500px;
+      padding: 103px 15px 40px;
+    }
+  }
+  &__headline {
+    margin: 0 auto 13px;
+    max-width: 830px;
+    @include text-lg($font-multiplier: 3.05);
+    text-shadow: 0 0 12px rgba(32, 32, 32, 0.5);
+    text-align: center;
+    padding: 0 15px;
+    @include tablet {
+      @include text-lg();
+    }
+  }
+  &__author-bio {
+    max-width: 333px;
+    max-height: 83px;
+    overflow: hidden;
+    padding-bottom: 2px;
+    text-align: center;
+    font-family: $text-font-family;
+    @include text-sm($font-multiplier: 0.88, $font-weight: 400, $line-height: 1.31, $letter-spacing: -0.2px, $color: #f9f9f9);
+  }
+  &__user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -33px;
+  }
+  &__user-image {
+    @include image_background;
+    width: 66px;
+    height: 66px;
+    border: solid 2px #ffffff;
+    margin-bottom: 14px;
+    border-radius: 100%;
+  }
+  &__author-name {
+    margin-bottom: 19px;
+    @include text-sm($font-multiplier: 0.88, $letter-spacing: 0.2px, $color: $body-text);
+  }
+  &__button-wrap {
+    display: flex;
+    margin-bottom: 25px;
+    @include tablet {
+      margin-bottom: 35px;
+    }
+    > a:first-child {
+      margin-right: 10px;
+    }
+  }
+  .card-container {
+    padding-bottom: 40px;
+  }
+}
+

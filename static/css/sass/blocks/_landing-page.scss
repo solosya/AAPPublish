@@ -1,0 +1,215 @@
+.landing-page {
+  padding: 0px 0px 98px;
+  &__header {
+    @extend .container;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 130px 0px 50px;
+    @include tablet {
+      padding: 287px 0px 165px;
+    }
+    &_container {
+      @include image_background;
+      width: 100%;
+      height: 100%;
+      background-attachment: fixed;
+    }
+    &_overlay {
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.0), rgba(0, 0, 0, 0.5));
+      width: 100%;
+      height: 100%;
+    }
+    &_content {
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+      text-align: center;
+      padding: 0px 20px;
+      max-width: 100%;
+      @include mobile {
+        padding: 0px 30px;
+      }
+      @include desktop {
+        padding: 0px;
+      }
+    }
+    &_title {
+      @include text-lg($color: $white, $line-height: 1.07, $font-multiplier: 3);
+      text-shadow: 0 0 12px rgba(32, 32, 32, 0.5);
+      margin-bottom: 10px;
+      @include tablet {
+        @include text-lg($color: $white, $line-height: 1.07);
+      }
+    }
+    &_subtitle {
+      @include text-lg($color: $white, $line-height: 1.07, $font-multiplier: 3);
+      text-shadow: 0 0 12px rgba(32, 32, 32, 0.5);
+      margin-bottom: 53px;
+      flex-shrink: 1;
+      letter-spacing: -0.4px;
+      @include tablet {
+        @include text-lg($color: $white, $line-height: 1.07);
+      }
+    }
+    &_button {
+      margin: 0 auto;
+      align-self: center;
+      max-width: 200px;
+    }
+  }
+  &__content {
+    &_section-container {
+      border-bottom: solid 1px #e6e6e6;
+    }
+    &_section {
+      @extend .container;
+      flex-direction: column;
+      padding: 103px 15px;
+      justify-content: center;
+      @include tablet {
+        flex-direction: row;
+      }
+      @include desktop {
+        padding: 103px 0px;
+      }
+    }
+    &_image-container {
+      display: flex;
+      justify-content: center;
+      order: 1;
+      height: 300px;
+      @include mobile {
+        height: 446px;
+      }
+      @include tablet {
+        flex-shrink: 1;
+        justify-content: flex-start;
+        width: 50%;
+      }
+      &.margin-left {
+        @include desktop {
+          margin-left: 20px;
+        }
+      }
+    }
+    &_image {
+      @include image-background;
+      background-position: center center;
+      box-shadow: 0 0 8px 0 rgba(73, 73, 73, 0.3);
+      width: 100%;
+      flex-shrink: 1;
+      @include desktop {
+      }
+      @include desktop-lg {
+        max-width: 100%;
+      }
+    }
+    &_text-container {
+      display: flex;
+      order: 0;
+      width: 100%;
+      padding: 0px 0px 0px 0px;
+      @include tablet {
+        order: 1;
+        width: 50%;
+        margin-right: auto;
+        padding: 30px 30px 0px 50px;
+      }
+      @include desktop {
+        width: 50%;
+        margin-right: auto;
+        padding: 30px 10px 0px 105px;
+      }
+      &.margin-left {
+        @include desktop {
+          margin-left: 20px;
+        }
+      }
+    }
+    &_text-box {
+      margin-bottom: 47px;
+      @include tablet {
+        max-width: 370px;
+      }
+    }
+    &_title {
+      @include text-md($color: $heading-text, $line-height: 1, $font-weight: 700, $font-multiplier: 2.334, $letter-spacing: -0.5px);
+      margin-bottom: 25px;
+    }
+    &_text {
+      @include text-md($color: $body-text, $line-height: 1.35, $font-weight: 400, $font-multiplier: 1.112, $letter-spacing: -0.5px);
+      font-family: $text-font-family;
+      margin-bottom: 47px;
+    }
+    &_button {
+
+    }
+  }
+  &__banner {
+    @include image-background;
+    box-shadow: inset 0 -53px 59px 0 rgba(0, 0, 0, 0.4);
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 70px 30px 41px;
+    margin-bottom: 77px;
+    @include tablet {
+      padding: 103px 30px 41px;
+    }
+    &_content {
+      max-width: 100%;
+      margin-left: 0px;
+      flex-shrink: 1;
+      @include tablet-lg {
+        margin-left: auto;
+        max-width: 670px;
+      }
+    }
+    &_title {
+      @include text-lg($color: $white, $font-multiplier: 2.35, $line-height: 1.09, $font-weight: 700);
+      max-width: 100%;
+      margin: 0 auto 35px;
+      z-index: 1;
+      @include tablet {
+        max-width: 650px;
+        @include text-lg($color: $white, $font-multiplier: 3.05, $line-height: 1.09, $font-weight: 700);
+      }
+    }
+    p {
+      @include text-md($color: $white, $font-weight: 500);
+      max-width: 100%;
+      margin: 0 auto 35px;
+      z-index: 1;
+      @include tablet {
+        max-width: 650px;
+      }
+    }
+    &_input {
+      @include text-md($color: $body-text, $font-multiplier: 0.667, $line-height: 1, $letter-spacing: 0.8px, $font-weight: 500);
+      @include placeholder($color: #b2b2b2);
+      @include transition(all $transition-duration ease);
+      padding: 14px 22px;
+      border: none;
+      display: block;
+      border-radius: 4px;
+      margin: 0 auto 34px;
+      width: 100%;
+      max-width: 370px;
+      border: solid 1px transparent;
+      &:focus {
+        border-color: #808080;
+      }
+    }
+    &_button {
+      margin: 0px auto;
+    }
+  }
+  &__related {
+    &_title {
+      @include text-md($color: $heading-text, $font-multiplier: 1.334, $line-height: 1.42, $letter-spacing: 0.8px, $font-weight: 700);
+      text-align: center;
+      margin-bottom: 70px;
+    }
+  }
+}

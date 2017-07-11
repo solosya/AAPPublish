@@ -1,0 +1,49 @@
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
+
+{% set limit = 20 %}
+{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
+{% set articles = articlesArr.articles %}
+
+{{this.registerJs("HomeController.listing();")}}
+<div class="home ">
+    {% if articles|length > 0 %}
+        {% if articles[0] is defined %}
+            {{this.render('partials/_single-article.twig', {article: articles[0], 'position': 1, containerClass: 'col-full col-full--hero'}) | raw}}            
+        {% endif %}
+        <div class="card-container">
+            <div class="card-row">
+                {% for i in 1..3 %}
+                    {% if articles[i] is defined %}
+                        {{this.render('partials/_single-article.twig', {article: articles[i], 'position': i+1, containerClass: 'col-third'}) | raw}}            
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% if articles[4] is defined %}
+            {{this.render('partials/_single-article.twig', {article: articles[4], 'position': 5, containerClass: 'col-full'}) | raw}}            
+        {% endif %}
+        <div class="card-container">
+            <div class="card-row">
+                {% for i in 5..19 %}
+                    {% if articles[i] is defined %}
+                        {{this.render('partials/_single-article.twig', {article: articles[i], 'position': i+1, containerClass: 'col-third'}) | raw}}            
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+            
+        <div class="card-container">
+            <div class="card-row ajaxArticles"  data-existing-nonpinned-count="{{articlesArr.existingNonPinnedCount}}"  data-offset="{{limit}}">
+            </div>
+        </div>
+    {% endif %}
+    <div class="text-center has-margin-bottom-20">
+        {% if articles|length >= limit %}
+            <a href="javascript:void(0)" class="button shops-slider__more loadMoreArticles"><i class="fa fa-arrow-down"></i>Load More</a>
+        {% endif %}
+    </div>
+</div>
+
+
+
+

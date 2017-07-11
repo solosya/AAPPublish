@@ -1,0 +1,15 @@
+.channel-overview {
+	padding: 60px 0px 160px;
+	&__header-container {
+		width: 100%;
+	}
+	&__header {
+		@extend .container;
+		@include text-lg($color: $body-text, $font-weight: 700, $font-multiplier: 2.445);
+    display: flex;
+		margin-bottom: 50px;
+		@include desktop {
+			margin-bottom: 60px;
+		}
+	}
+}

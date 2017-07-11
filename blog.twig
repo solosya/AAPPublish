@@ -1,0 +1,82 @@
+{% set blogInfo = _Blog.getBlog() %}
+{% set networkData = _Network.getNetworkData() %}
+
+{{ set(this, 'title', blogInfo.title) }}
+
+{% set limit = 12 %}
+{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
+{% set articles = articlesArr.articles %}
+
+{% set hasBlogImage = FALSE %}
+{% set blogImage = "" %}
+{% if blogInfo.media['cover']['id'] is not empty %}
+    {% set blogImage = _Media.getMediaUrl(blogInfo.media['cover'], 1160, 600, {crop:"fill"}) %}
+    {% set hasBlogImage = TRUE %}
+{% endif %}    
+
+{% set blogOwnerImage = _Media.getMediaUrl(blogInfo.owner['media'], 180, 180, {crop:"thumb", radius:"max", gravity:"face", type: "user"}) %}
+{{this.registerJs("HomeController.listing();")}}
+{{this.registerJs("HomeController.blog();")}}
+
+<div class="blog home">
+    <div class="blog__headline-container {% if not hasBlogImage %}no-image{% endif %}" {%if hasBlogImage%}style="background-image:url('{{blogImage}}');"{%endif%}>
+        <div class="blog__headline-overlay">
+            <div class="blog__headline">{{blogInfo.title}}</div>
+            <div class="blog__author-bio">{{Helper.shortStr(blogInfo.shortDescription, 150, false, true) | raw}}</div>
+        </div>
+    </div>
+    {% set blogOwnerImage = '' %}
+    {% if blogInfo.owner['media'] | length > 0 and blogInfo.owner['media']['id'] is defined %}
+        {% set blogOwnerImage = _Media.getMediaUrl(blogInfo.owner['media'], 160, 160, {crop:"thumb", radius:"max", gravity:"face"}) %}
+    {% endif %}
+    <div class="blog__user-container">
+        <div class="blog__user-image" {%if blogOwnerImage is not empty%}style="background-image:url('{{blogOwnerImage}}'); background-size: cover; display: inline-block; border-radius: 50%;"{%endif%}></div>
+        <div class="blog__author-name">{{blogInfo.owner['display_name'] | raw}}</div>
+        <div class="blog__button-wrap">
+            {% if not _Network.isNetworkClosed(networkData)%}
+                {% if not _User.isGuest %}
+                    {% set isUserFollowingBlog = _User.isUserFollowing('blog', blogInfo.id) %}
+                    {% if isUserFollowingBlog %}
+                        <a href="javascript:void(0)" class="button button--sm button--outline followBlog" data-status="unfollow"  data-guid="{{blogInfo.guid}}">Unfollow</a>
+                    {% else %}
+                        <a href="javascript:void(0)" class="button button--sm button--outline followBlog" data-status="follow"  data-guid="{{blogInfo.guid}}">Follow</a>
+                    {% endif %}
+                {% else %}
+                    <a href="javascript:void(0)" class="button button--sm button--outline forceLoginModal">Follow</a>
+                {% endif %}
+            {% endif %}
+
+            <div href="#" class="button button--sm button__share">
+                share
+                {{this.render('partials/article/_share-modal.twig', {network: networkData, url:blogInfo.url}) | raw }}
+            </div>
+        </div>
+    </div>
+
+
+    {% if articles|length > 0 %}
+        <div class="card-container">
+            <div class="card-row ajaxArticles" data-existing-nonpinned-count="{{articlesArr.existingNonPinnedCount}}" data-offset="{{limit}}">   
+                {% for i in 0..(articles|length - 1) %}
+                    {% if articles[i] is defined %}
+                        {{this.render('partials/_single-article.twig', {article: articles[i], 'position': (i+1), containerClass: 'col-third'}) | raw}}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif%}
+
+    <div class="text-center">
+        {% if articles|length >= limit %}
+            <a href="javascript:void(0)" class="button loadMoreArticles"><i class="fa fa-arrow-down"></i>&nbsp;Load More</a>
+        {% endif %}
+    </div>
+
+    {% set noDataCls = 'hide' %}
+    {% if articles|length == 0 %}
+        {% set noDataCls = '' %}
+    {% endif %}
+    <div class=" text-center {{noDataCls}} NoArticlesMsg">
+        <p class="no-data text-center">No articles found.</p>  
+    </div>
+</div>

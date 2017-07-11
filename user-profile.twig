@@ -1,0 +1,68 @@
+{{ set(this, 'title', 'User Profile') }}
+
+{% set network = _Network.getNetworkData() %}
+{% set profileImage =_Media.getMediaUrl(userDetails.media, 500, 500, {crop: 'thumb', gravity: 'face', type:'user'} )%}
+<div class="user-posts">
+    <div class="user-posts-sidebar__wrap">
+        <div class="user-posts-sidebar">
+            <div class="user-posts-sidebar__picture" style="background-image: url('{{profileImage}}');"></div>
+            <div class="user-posts-sidebar__name">{{Html.encode(userDetails.firstname)}} {{Html.encode(userDetails.lastname)}}</div>
+            <span class="user-posts-sidebar__description">{{Html.decode(userDetails.bio) | raw }}</span>
+            <div class="user-posts-sidebar__button-wrap">
+                
+                {% if not _User.isGuest() and _User.getId() != userDetails.id and not _Network.isNetworkClosed(network) %}
+                    {% set isUserFollowing = _User.isUserFollowing('user', userDetails.id)  %}
+                    <a href="javascript:void(0);" class="button button--sm button--outline button__follow-user-posts FollowProfileUser"  data-guid="{{userDetails.guid}}" data-status="{% if isUserFollowing == 'TRUE' %}unfollow{% else %} follow {% endif %}">{% if isUserFollowing == 'TRUE' %} Unfollow {% else %} Follow {% endif %}</a>
+                {% endif %}
+                <div class="button button--sm button__share">
+                    <span>Share</span>
+                    {{this.render('partials/article/_share-modal.twig', {url : _AppHelper.getServerUrl()}) | raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="user-posts__section">
+        <div class="user-posts__activity">
+            {% if userOwnerBlogs is not empty and userOwnerBlogs | length > 0 %}
+                <div class="user-posts__title">Contributes to:</div>
+                <div class="card-container">
+                    <div class="card-row">
+                        {{this.render('partials/user-profile/_user_blogs.twig', {userOwnerBlogs : userOwnerBlogs}) | raw }}
+                    </div>
+                </div>
+            {% endif %}
+            {% if myBlogs is not empty and myBlogs | length > 0 %}
+            <div class="user-posts__title">Follows:</div>
+            <div class="card-container">
+                <div class="card-row">
+                    {{this.render('partials/user-profile/_user_following_blogs.twig', {myBlogs : myBlogs, network: network}) | raw }}
+                </div>
+            </div>
+            {% endif %}   
+            {% if myFollowings is not empty and myFollowings | length > 0 %}
+            <div class="user-posts__title">Following writers:</div>
+            <div class="card-container">
+                <div class="card-row">
+                    {{this.render('partials/user-profile/_user_following_writer.twig', {myFollowings : myFollowings, network: network}) | raw }}
+                </div>
+            </div>
+            {% endif %} 
+            {% if myFollowers is not empty and myFollowers | length > 0 %}
+            <div class="user-posts__title">Users following {{Html.encode(userDetails.firstname)}} {{Html.encode(userDetails.lastname)}}:</div>
+            <div class="card-container">
+                <div class="card-row">
+                    {{this.render('partials/user-profile/_user_followed_by.twig', {myFollowers : myFollowers, network: network}) | raw }}
+                </div>
+            </div>
+            {% endif %} 
+            {% if myArticles is not empty and myArticles | length > 0 %}
+            <div class="user-posts__title">Articles by {{Html.encode(userDetails.firstname)}} {{Html.encode(userDetails.lastname)}}:</div>
+            <div class="card-container">
+                <div class="card-row">
+                    {{this.render('partials/user-profile/_recent_articles.twig', {myArticles : myArticles}) | raw }}
+                </div>
+            </div>
+            {% endif %} 
+        </div>
+    </div>
+</div>

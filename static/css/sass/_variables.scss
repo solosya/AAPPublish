@@ -1,0 +1,112 @@
+// Base Colors
+$light-color:               #fff;
+$gray-color:                #ebebeb;
+$dark-color:                #384362;
+$base-color:                #404040;
+$grey:			                #808080;
+$body-text:                 #3b3c3f;
+$icon-color:                #575757;
+$article-body-text:         $body-text;
+$heading-text:              #202020;
+$body-color:                #fff;
+$header-color:              #3f3f50;
+$highlight-color:           #36647E;
+$quote-color:               #662d91;
+$hover-color:               $highlight-color;
+$follow-color:              #00a651;
+$blog-follow-color:         #6b7eee;
+$hashtag-color:             #55acee;
+$slide-color:               #0076a3;
+$blue:                      #46a5fc;
+$transparent:               rgba(0,0,0,0);
+$border-color:              #e0e0e0;
+$placeholder:               #545a6d;
+$link-color:                #58627E;
+$signup-link-color:         #56d294;
+$error-color:               #e73d4a;
+$success-color:             #4FE8C4;
+$warning:                   #fecd50;
+$black:                     #000000;
+$white:                     #ffffff;
+$call-to-action-highlight:  #41a7cd;
+$header-text:               #000000;
+$footer-text:               #f9f9f9;
+$header-background:         rgba(#ffffff, 0.9);
+$theme-color:               #e25e6d;
+$primary-button-fill:       #000000;
+$event-card-background: #dae0e9;
+$account-modal-highlight:   #00C1CB;
+$account-modal-green:   #34C87B;
+$account-modal-red:     #F54E4E;
+$account-modal-blue:    #e25e6d;
+
+$sections: (
+  0:    (
+          color: #47e4c2,
+  ),
+  1: (
+          color: #9100ff,
+  ),
+  2:        (
+          color: #f6a623,
+  ),
+  3:         (
+          color: #1db7ff,
+  ),
+  4:     (
+          color: #e25e6d,
+  ),
+  5:       (
+          color: #2f5eff,
+  ),
+  6:    (
+          color: #47e4c2,
+  ),
+  7: (
+          color: #9100ff,
+  ),
+  8:        (
+          color: #f6a623,
+  ),
+  9:         (
+          color: #1db7ff,
+  ),
+  10:     (
+          color: #e25e6d,
+  ),
+  11:       (
+          color: #2f5eff,
+  )
+);
+
+$social-colors: (
+  facebook:    #3b5998,
+  featured:    #15b999,
+  google-plus: #e04a32,
+  instagram:   #9f6fc0,
+  linkedin:    #123e65,
+  twitter:     #55acee,
+  youtube:     #cc181e,
+  vimeo:       #00b3ec,
+);
+
+// Dimensions
+$screen-xs:   480px;  // Mobile
+$screen-sm:   768px;  // Tablet
+$screen-smd:  992px; // Tablet large
+$screen-md:   1200px; // Desktop
+$screen-lg:   1600px; // Large desktop
+
+$container-limiter: 30px; // Used to limit larger containers to less than screen breakpoint
+
+// Font
+$heading-font-family: "Yantramanav", Helvetica, Arial, sans-serif !default;
+$base-font-family: 	  "Yantramanav", Helvetica, Arial, sans-serif !default;
+$text-font-family: 	  "Karla", Helvetica, Arial, sans-serif !default;
+$iconfont:				    FontAwesome !default;
+
+// Font Size
+$baseFontSize:			18px; /* ($baseFontSize * 1) + 0px; */
+
+// Standard transition speed
+$transition-duration: 0.4s;

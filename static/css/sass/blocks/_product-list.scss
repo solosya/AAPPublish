@@ -1,0 +1,94 @@
+.product-list {
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #dbdbdb;
+    margin-bottom: 50px;
+    padding: 0px 0px 25px;
+    margin: 0px 10px;
+    @include tablet {
+      margin: 0 20px;
+      padding: 0px 0px 25px;
+    }
+    @include desktop {
+      margin: 0 0px;
+    }
+    &_container {
+      @extend .container;
+      padding: 91px 0px 30px;
+    }
+    &_title {
+      @include text-lg($color: $heading-text, $font-multiplier: 1.667, $font-weight: 700, $line-height: 1.1);
+      @include mobile {
+        flex-direction: row;
+        align-items: flex-start;
+        margin: 0px;
+      }
+    }
+    &_dropdown {
+      z-index: 2;
+      @include text-md($color: $body-text, $font-multiplier: 0.667, $font-weight: 400, $line-height: 0.92, $letter-spacing: 0.1px);
+      position: relative;
+      border-radius: 3px;
+      padding: 6px 11px;
+      border: solid 1px #f1f1f1;
+      height: 25;
+      text-transform: uppercase;
+      background-color: #f9f9f9;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      svg {
+        width: 10px;
+        height: 10px;
+      }
+    }
+    &_dropdown-text {
+      margin-right: 20px;
+    }
+    &_dropdown-list {
+      position: absolute;
+      width: 130px;
+      min-width: 100%;
+      top: calc(100% + 5px);
+      right: 0px;
+      border-radius: 3px;
+      overflow: hidden;
+      background-color: #fff;
+      border: solid 1px #f1f1f1;
+      display: none;
+      &.active {
+        display: block;
+      }
+    }
+    &_dropdown-item {
+      @include transition(all $transition-duration ease);
+      padding: 10px 11px;
+      border-bottom: 1px solid #f1f1f1;
+      &:hover {
+        background-color: #f3f3f3;
+      }
+    }
+  }
+  &__products {
+    @extend .card-container;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 10px 130px;
+    @include mobile {
+      padding: 0 15px 130px;
+    }
+    @include tablet {
+      padding: 0 20px 130px;
+    }
+    @include desktop {
+      padding: 0 0px 130px;
+    }
+    > div:nth-child(even) a {
+      background-color: #b0d1e0;
+    }
+  }
+}

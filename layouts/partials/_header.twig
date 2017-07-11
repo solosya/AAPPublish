@@ -1,0 +1,133 @@
+{% set user = '' %}
+{% if not _User.isGuest()%}
+    {% set user = _User.getUser()%}
+{% endif %}
+<header class="header">
+    <div class="header__search-form_container">
+        <div class="header__search-form_left"></div>
+        <form class="header__search-form" action="{{ url('search') }}">
+            <button class="header__search-form_button"><i class="fa fa-search"></i></button>
+            <input class="header__search-form_input" placeholder="Search" name="s" autocomplete="off" />
+            <img class="header__search-form_close" src="{{network.templatePath}}/static/images/gray-cross.svg" alt="Search close"/>
+        </form>
+        <div class="header__search-form_right{% if _User.isGuest()%} active{% endif %}"></div>
+    </div>
+    <div class="header__content">
+        <img class="header__toggle" src="{{network.templatePath}}/static/images/header-toggle.svg" />
+        <img class="header__toggle-close" src="{{network.templatePath}}/static/images/gray-cross.svg" alt="Search close"/>
+        <div class="header__left">
+            {% set logo = network.templatePath~'/static/images/themeLogo.svg'%}
+            {% set logoUrl = network.networkLogoLinkUrl %}
+            {% if network.logoMedia | length > 0 %}
+                {% set logo = _Media.getMediaUrl(network.logoMedia, 177, 65, {'crop': 'limit'} )%}
+            {% endif %}
+            <a href="{{logoUrl}}" class="header__logo"><img src="{{logo}}" /></a>
+            <div class="header__navigation">
+                {% set menuItems = blogData.blogHeaderMenu %}
+                {% for i in 0..4 %}
+                    {% if menuItems[i] is defined %}
+                        {% set activeClass = (menuItems[i].link == _AppHelper.getServerUrl()) ? 'active' : ''%}
+                        {% set externalClass = (menuItems[i].isExternal) ? 'external-link' : '' %}
+                        {% set hasChildren = menuItems[i].children is defined and menuItems[i].children | length > 0 ? true : false %} 
+
+                        {% if hasChildren %}
+                            <div class="header__navigation_more header__navigation_link channel-{{menuItems[i].id}}">
+                                {{ ((menuItems[i].label is empty) ? ((menuItems[i].pageTitle is empty)? menuItems[i].blogTitle : menuItems[i].pageTitle) : menuItems[i].label )}}  <i class="fa fa-angle-down"></i>
+                                <div class="header__navigation_more-box-container">
+                                    <div class="header__navigation_more-box-tip"></div>
+                                    <div class="header__navigation_more-box">
+                                        {% for childItem in menuItems[i].children%}
+                                            {% set externalClass = (childItem.isExternal) ? 'external-link' : '' %}
+                                            {% set name = ((childItem.label is empty) ? ((childItem.pageTitle is empty)? childItem.blogTitle : childItem.pageTitle) : childItem.label) %}
+                                            <a href="{{childItem.link |raw}}" class="header__navigation_more-link {{externalClass}}"  {% if childItem.target != "" %}target="{{childItem.target}}"{% endif %}>{{ name }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a href="{{menuItems[i].link |raw}}" class="header__navigation_link  channel-{{menuItems[i].id}} {{activeClass}} {{externalClass}}" {% if menuItems[i].target != "" %}target="{{menuItems[i].target}}"{% endif %}>{{ ((menuItems[i].label is empty) ? ((menuItems[i].pageTitle is empty)? menuItems[i].blogTitle : menuItems[i].pageTitle) : menuItems[i].label )}} </a>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% if menuItems[5] is defined %}
+                    <div class="header__navigation_more">
+                        More <i class="fa fa-angle-down"></i>
+                        <div class="header__navigation_more-box-container">
+                            <div class="header__navigation_more-box-tip"></div>
+                            <div class="header__navigation_more-box">
+                                {% for i in 5..(menuItems |length - 1)%}
+                                    {% set menuItem = menuItems[i] %}									
+                                    {% if menuItems[i].children is defined and menuItems[i].children | length > 0 %}
+                                        <div class="header__navigation_more--secondary header__navigation_more-link">
+                                            Secondary Nav <i class="fa fa-angle-right"></i>
+                                            <div class="header__navigation_more-box-container header__navigation_more-box-container--secondary">
+                                                <div class="header__navigation_more-box">
+                                                    {% for childItem in menuItems[i].children%}
+                                                        {% set externalClass = (childItem.isExternal) ? 'external-link' : '' %}
+                                                        {% set name = ((childItem.label is empty) ? ((childItem.pageTitle is empty)? childItem.blogTitle : childItem.pageTitle) : childItem.label) %}
+                                                        <a href="{{childItem.link |raw}}" class="header__navigation_more-link {{externalClass}}" {% if childItem.target != "" %}target="{{childItem.target}}"{% endif %}> {{ name }}</a>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <a href="{{ menuItem.link }}" class="header__navigation_more-link">{{ ((menuItem.label is empty) ? ((menuItem.pageTitle is empty)? menuItem.blogTitle : menuItem.pageTitle) : menuItem.label )}}</a>
+                                    {% endif %}
+                                {% endfor %}								
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="header__right">
+            <!--<div class="header__singles">
+            {% set singles = craft.entries('singles') %}
+            {% for single in singles if single.displayInNav %}
+                    <a href="{{ single.url }}" class="header__singles_link">{{ single.title }}</a>
+            {% endfor %}
+    </div> -->
+            <div class="header__search">
+                <div class="header__search-button">
+                    <i class="fa fa-search"></i>
+                </div>
+            </div>
+            <div class="header__user">
+                {% if _User.isGuest() %}
+                    {% if not _Network.isNetworkClosed(network)%}
+                        <div class="header__user_login" id="login">
+                            <a class="header__login__link">Login</a>
+                            |
+                            <a class="header__login__link header__login__link--signup sign-up__link">Sign Up</a>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    {% set profileImage = ''%}
+                    {% set userImage = '' %}
+                    {% set userImage = 'header__heading-link--profile-image' %}
+                    {% set profileImage = _Media.getMediaUrl(user.profileMedia, 80, 80, {radius: 'max', gravity: 'face', 'crop': 'thumb', 'type' : 'user'}) %}
+                    <img class="header__user_image" src="{{profileImage}}" alt="User image"/>
+                    <div class="header__user_text">{{user.firstname}} <i class="fa fa-angle-down"></i></div>
+                    <div class="header__user_popup-container">
+	                <div class="header__user_popup-tip"></div>
+	                <div class="header__user_popup">
+	                    <a href="{{_AppHelper.buildUrl('user/my-news')}}" class="header__user_link">My News</a>
+                            {% if not _Network.isNetworkClosed(network)%}
+                                <a href="#" class="header__user_link account-modal-link link--following">Following</a>
+	                    {% endif %}
+                            <a class="header__user_link account-modal-link link--profile">Profile</a>
+	                    <a href="#" class="header__user_link account-modal-link link--account">My Account</a>
+                            {% if _User.isAdminUser() %}
+                                <a class="header__user_link" href="http://{{network.defaultDomain['domain']}}/admin" target="_blank">Admin</a>
+                            {% endif %}
+	                    <a class="header__user_link sign-out" href="{{_AppHelper.getLogoffUrl()}}">Sign Out</a>
+	                </div>
+	            </div>
+                    {% endif %}
+            </div>
+        </div>
+        <div class="header__bottom-bar"></div>
+        {{ this.render('header-mobile-content.twig', {network: network, blogData: blogData}) | raw }}
+
+    </div>
+</header>

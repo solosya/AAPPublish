@@ -1,0 +1,166 @@
+.contact {
+  &__header {
+    width: 100%;
+    background-color: $theme-color;
+    @include image-background();
+    &_overlay {
+      @include text-lg();
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.0), rgba(0, 0, 0, 0.5));
+      text-align: center;
+      padding: 160px 10px 100px;
+      text-shadow: 0 0 12px rgba(32, 32, 32, 0.5);
+      @include tablet {
+        padding: 268px 10px 153px;
+      }
+    }
+  }
+  &__container {
+    @extend .container;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 60px 0px 50px;
+    @include tablet-lg {
+      flex-wrap: no-wrap;
+    }
+  }
+  &__form-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+    padding: 30px 10px 0px;
+    @include mobile {
+      padding: 30px 10px 0px;
+    }
+    @include tablet-lg {
+      padding: 0px 0px 0px 20px;
+      justify-content: flex-start;
+      width: 50%;
+    }
+    @include desktop {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+  &__form {
+    max-width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    &_control {
+      @include text-md($font-weight: 500, $color: $body-text, $font-multiplier: 0.778, $letter-spacing: 0.8px, $line-height: 1);
+      display: block;
+      width: 100%;
+      background: #FFFFFF;
+      padding: 24px 21px;
+      border: none;
+      border: solid 1px rgba(59, 60, 63, 0.1);
+    	border-bottom: none;
+      @include placeholder($color: rgba(59, 60, 63, 0.7));
+    }
+    &_textarea {
+      @include text-md($font-weight: 500, $color: $body-text, $font-multiplier: 0.778, $letter-spacing: 0.8px, $line-height: 1);
+      display: block;
+      width: 100%;
+      height: 162px;
+      background: #FFFFFF;
+      padding: 24px 21px;
+      margin: 0px 0px 16px;
+      resize: none;
+      border: solid 1px rgba(59, 60, 63, 0.1);
+      @include placeholder($color:  rgba(59, 60, 63, 0.7));
+    }
+  }
+  &__content_wrap {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0px 10px;
+    @include mobile {
+      padding: 0px 0px;
+    }
+    @include tablet-lg {
+      width: 50%;
+    }
+  }
+  &__content {
+    width: 100%;
+    max-width: 400px;
+  }
+  &__headline {
+    @include text-lg($color: $body-text, $font-multiplier: 2.45, $font-weight: 700, $line-height: 1.04);
+    margin-bottom: 25px;
+  }
+  &__text {
+    @include text-md($font-weight: 700, $color: $heading-text, $font-multiplier: 1.667, $line-height: 1.1);
+    max-width: 324px;
+    margin-bottom: 24px;
+    @include tablet-lg {
+      margin-bottom: 54px;
+    }
+  }
+  &__details {
+    display: flex;
+    flex-wrap: wrap;
+    @include mobile {
+      flex-wrap: no-wrap;
+    }
+  }
+  &__number {
+    flex: 1 0 50%;
+    margin-bottom: 40px;
+    &_title {
+      margin-bottom: 15px;
+      @include text-md($font-weight: 700, $color: $header-color, $font-multiplier: 1.223, $line-height: 1.14);
+    }
+    &_text {
+      max-width: 170px;
+      @include text-md($font-weight: 500, $color: $body-text, $line-height: 1.22);
+    }
+  }
+  &__address {
+    flex: 1 0 51%;
+    margin-bottom: 40px;
+    &_title {
+      @include text-md($font-weight: 700, $color: $header-color, $font-multiplier: 1.223, $line-height: 1.14);
+      margin-bottom: 15px;
+    }
+    &_text {
+      max-width: 170px;
+      @include text-md($font-weight: 500, $color: $body-text, $line-height: 1.22);
+    }
+  }
+  .social-links {
+    position: relative;
+    margin-left: -3px;
+    .fa {
+      color: $header-color!important;
+      background: none!important;
+      font-size: 16px;
+      display: inline-block;
+      height: 30px;
+      padding-top: 8px;
+      margin: 0px -2px 0px -2px;
+      @include transition(color $transition-duration ease);
+      &:hover {
+        color: #36647E;
+      }
+    }
+  }
+  &__map {
+    filter: grayscale(100%);
+    overflow: hidden;
+    position: relative;
+    &_overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+    }
+  }
+}

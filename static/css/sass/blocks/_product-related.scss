@@ -1,0 +1,12 @@
+.product-related {
+  @extend .container;
+  flex-direction: column;
+  padding-bottom: 90px;
+  &__title {
+    @include text-md($color: $article-body-text, $font-multiplier: 1.33, $font-weight: 700, $line-height: 1.42, $letter-spacing: -0.2px);
+    margin: 0px 15px;
+    padding: 37px 0px 24px;
+    text-align: center;
+    border-top: solid 1px #e6e6e6;
+  }
+}

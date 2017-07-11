@@ -1,0 +1,45 @@
+.blog-overview {
+  padding: 60px 0px 70px;
+}
+
+.blog-overview-card {
+  @include transition(all $transition-duration ease);
+  display: flex;
+  flex-direction: column;
+  margin: 0px 15px 40px;
+  &:hover {
+    @include transition(all $transition-duration ease);
+    opacity: 0.7;
+  }
+  &__header {
+    @include image_background;
+    background-size: cover!important; // Being overridden by inline styling.
+    height: 60px;
+    width: 100%;
+    background: $theme-color;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    padding: 17px 20px;
+    align-items: flex-start;
+  }
+  &__title {
+    @include text-md($color: $heading-text, $font-multiplier: 1.223, $font-weight: 700, $line-height: 1.14, $letter-spacing: -0.3px);
+    margin-bottom: 10px;
+  }
+  &__text {
+    @include text-md($color: $body-text, $font-multiplier: 0.778, $font-weight: 400, $line-height: 1.29);
+    font-family: $text-font-family;
+    height: 75px;
+    margin-bottom: 26px;
+    overflow: hidden;
+    max-width: 100%;
+    &:hover {
+      color: $body-text;
+    }
+  }
+  &__follow {
+
+  }
+}

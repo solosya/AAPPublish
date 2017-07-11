@@ -1,0 +1,203 @@
+.event {
+  &__header {
+    width: 100%;
+    &_content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      @include tablet-lg {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+    &_content-left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba($theme-color, 0.6);
+      flex: 1 0 40%;
+      padding: 13px 54px 22px;
+      align-self: stretch;
+      @include tablet-lg {
+        justify-content: flex-end;
+      }
+    }
+    &_content-right {
+      display: flex;
+      text-align: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 27px 35px 19px;
+      border-top: 1px solid #ececec;
+      flex: 1 0 60%;
+      @include tablet-lg {
+        text-align: left;
+        align-items: flex-start;
+      }
+    }
+    &_text {
+      max-width: 130px;
+      text-align: center;
+    }
+  }
+  &__days {
+    @include text-lg($color: $white, $font-multiplier: 6.667, $font-weight: 700, $letter-spacing: -1.3px, $line-height: 0.8);
+    margin: 0px 0px 20px;
+  }
+  &__month {
+    @include text-md($color: $white, $font-weight: 500, $letter-spacing: 0.7px, $line-height: 1.33);
+    text-transform: uppercase;
+    margin: 0px 0px 2px;
+  }
+  &__hours {
+    @include text-md($color: $white, $font-weight: 500, $letter-spacing: 0.7px, $line-height: 1.33);
+    text-transform: uppercase;
+  }
+  &__event-link {
+    @include text-md($color: $white, $font-multiplier: 0.723, $letter-spacing: 0.2px);
+    background-color: #72787c;
+    border: 1px solid #72787c;
+    max-width: 96px;
+    padding: 4px 27px;
+    margin-bottom: 30px;
+    &:hover {
+      background-color: $white;
+    }
+  }
+  &__title {
+    @include text-lg($color: $body-text, $font-multiplier: 2.44, $font-weight: 700, $letter-spacing: -0.6px, $line-height: 1.23);
+    margin: 0px 0px 22px;
+  }
+  &__subtitle {
+    @include text-md($color: #72787c, $font-multiplier: 0.72, $font-weight: 500, $letter-spacing: 0.7px);
+    margin-left: 3px;
+  }
+  &__panels {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-top: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+    @include tablet-lg {
+      flex-wrap: no-wrap;
+      justify-content: space-between;
+    }
+    @include desktop-lg {
+      align-self: center;
+    }
+  }
+  &__panel {
+    flex: 1 0 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $white;
+    padding: 30px 0px;
+    border-left: 1px solid #ececec;
+    border-top: 1px solid #ececec;
+    @include mobile {
+      flex: 1 0 50%;
+    }
+    @include tablet-lg {
+      flex: 1 0 33.33%;
+    }
+    &:first-of-type {
+      border: none;
+    }
+    &--share {
+      position: relative;
+      cursor: pointer;
+      @include transition(all $transition-duration ease);
+      &:hover {
+        background: rgba(#eaeaea, 0.5);
+        color: $theme-color;
+        .fa {
+          color: $theme-color;
+        }
+        .event__text-container_subtitle {
+          color: $theme-color;
+        }
+      }
+      .share-popup {
+        left: 0px;
+        bottom: 50%;
+      }
+    }
+  }
+  &__panel-content {
+    display: flex;
+    align-items: center;
+  }
+  &__icon {
+    .fa {
+      display: block;
+      position: relative;
+      top: 3px;
+      color: #353839;
+      width: 30px;
+      display: inline-block;
+      font-size: 24px;
+      height: 30px;
+      text-align: center;
+      margin: 0px 20px 0px 0px;
+      @include transition(all $transition-duration ease);
+    }
+  }
+  &__text-container {
+    &_title {
+      @include text-md($color: #353839, $font-weight: 700, $letter-spacing: 0px, $line-height: 1);
+    }
+    &_subtitle {
+      @include text-md($color: #72787c, $font-multiplier: 0.778, $letter-spacing: 0px);
+      @include transition(all $transition-duration ease);
+    }
+  }
+  &__button {
+    margin: 0px 0px 0px 50px;
+  }
+
+  &__content {
+    @extend .container;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 62px 15px 84px;
+    @include tablet {
+      padding: 62px 20px 84px;
+    }
+    @include tablet-lg {
+      padding: 104px 20px 154px;
+    }
+    @include desktop {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    h3 {
+      @include text-lg($color: $body-text, $line-height: 1.25, $font-weight: 500, $font-multiplier: 1.335);
+      margin-bottom: 30px;
+      max-width: 767px;
+    }
+    p {
+      @include text-md($color: $article-body-text, $line-height: 1.67, $font-weight: 400);
+      margin-bottom: 56px;
+      max-width: 769px;
+    }
+    iframe {
+      width: 100%;
+      margin-bottom: 56px;
+    }
+    img {
+      width: 100%;
+    }
+  }
+  &__related-title {
+    @include text-lg($color: $body-text, $font-multiplier: 2.445, $font-weight: 500, $line-height: 1.01);
+    text-align: center;
+    margin-bottom: 58px;
+  }
+  &__related-container {
+    margin-bottom: 80px;
+  }
+}
+

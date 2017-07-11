@@ -1,0 +1,170 @@
+.button {
+  background-color: #e25e6d;
+  // border is here for transitions only
+  border: solid 2px #e25e6d; border-radius: 4px;
+  padding: 15px 30px 15px 30px;
+  display: inline-block;
+  cursor: pointer;
+  // Stopping button from shrinking when in a flex container
+  flex-shrink: 0;
+  @include text-md($color: #f9f9f9, $letter-spacing: 0.1px, $line-height: 0.73, $font-multiplier: 0.833, $font-weight: 500);
+  @include transition(all $transition-duration ease);
+  text-transform: uppercase;
+  &:hover, &:active {
+    background-color: #eb7986;
+    border-color: #eb7986;
+    color: #f9f9f9;
+  }
+  i, svg {
+    margin-right: 10px;
+    position: relative;
+    bottom:2px;
+  }
+  &__banner {
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    color: $body-text;
+  }
+  &--outline {
+    border-radius: 3px;
+    border: solid 1px $theme-color;
+    color: $theme-color;
+    background: none;
+    &:hover, &:active {
+      background: $theme-color;
+      border-color: white;
+      color: white;
+    }
+  }
+  &--white {
+    border-radius: 3px;
+    border: solid 1px $white;
+    color: $white;
+    background: none;
+    &:hover, &:active {
+      background: none;
+      border-color: rgba($white, 0.7);
+      color: rgba($white, 0.7);
+    }
+  }
+  &--sm {
+    padding: 8px 10px 7px;
+    line-height: 0.92;
+    font-size: 12px;
+    border-radius: 3px;
+  }
+  &--md {
+    padding: 7px 24px;
+    font-size: 13px;
+  }
+  &__share {
+    position: relative;
+    color: rgba(32, 32, 32, 0.8);
+    background-color: transparent;
+    margin: 1px;
+    border-color: transparent;
+    padding: 7px 10px 6px;
+    span {
+      height: 11.04px;
+    }
+    &:hover {
+      background-color: transparent;
+      border-color: transparent;
+      color: $theme-color;
+    }
+    .share-popup .share-popup__close {
+      width: auto !important;
+      margin: 0;
+    }
+    .fa-share-alt {
+      font-size: 24px;
+      margin-right: 12px!important;
+    }
+    span {
+      position: relative;
+    }
+  }
+  &__comments {
+    display: inline-block;
+    position: relative;
+    padding: 12px 18px 12px 18px;
+  }
+  &__share {
+    &:hover, &:active {
+      transform: none;
+    }
+  }
+}
+
+
+.account-button {
+  @include text-md($color: $white, $font-multiplier: 0.778, $letter-spacing: 0px, $font-weight: 600);
+  @include transition(all 0.4s ease);
+  cursor: pointer;
+  display: inline-block;
+  padding: 8.5px 17px 9.5px;
+  border: 0px solid #7A83A3;
+  background-color: $theme-color;
+  box-shadow: inset 0px -3px 0px 0px rgba(0,0,0,0.20);
+  border-radius: 2px;
+  &.error {
+    background-color: $account-modal-red;
+    &:hover {
+      background-color: rgba($account-modal-red, 0.7);
+    }
+  }
+  .fa {
+    position: relative;
+    font-size: 16px;
+    margin-left: -5px;
+    margin-right: 7px;
+    top: 1px;
+    &:hover {
+      color: $white!important; // Overriding social icon hover colors.
+    }
+  }
+  &:hover {
+    background-color: rgba($theme-color,0.80);
+  }
+  &--sm {
+    padding: 5px 17px 8px;
+    background-color: $account-modal-highlight;
+    &:hover {
+      background-color: rgba($account-modal-highlight, 0.7);
+    }
+  }
+  &--save {
+    @include text-md($color: $white, $font-multiplier: 0.889, $letter-spacing: 0px);
+    background: $account-modal-green;
+    border: 1px solid rgba($black, 0);
+    padding: 9px 17px;
+    border-bottom: none;
+    &:hover {
+      background-color: rgba($account-modal-green, 0.7);
+    }
+    &.active {
+      background: $white;
+      color: #7A83A3;
+      border: 1px solid #7A83A3;
+      padding: 9px 17px 8px;
+      box-shadow: inset 0px -3px 0px 0px rgba(#C0C7DB,1);
+    }
+  }
+  &--image {
+    &.active {
+      background-color: $account-modal-green;
+    }
+  }
+  &--outline {
+    background: $white;
+    color: #7A83A3;
+    border: 1px solid #7A83A3;
+    box-shadow: inset 0px -3px 0px 0px rgba(#C0C7DB,1);
+    &:hover {
+      background-color: $account-modal-red;
+      border-color: $account-modal-red;
+      color: $white;
+      box-shadow: inset 0px -3px 0px 0px rgba($black,0.3);
+    }
+  }
+}

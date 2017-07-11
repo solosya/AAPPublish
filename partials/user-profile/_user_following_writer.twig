@@ -1,0 +1,41 @@
+{% if myFollowings | length > 0 %}
+    {% for following in myFollowings %}
+        {% set imgWidth = 290 %}
+        {% set imgHeight = 80 %}
+        {% set hasImage = (following.following['media'] is defined and following.following['media']['path'] != '') ? 1 : 0 %}
+        {% if hasImage %}
+            {% set userImg = _Media.getMediaUrl(following.following['media'],imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces'} ) %}
+        {% endif %}
+        <div class="col-quarter">
+            <div class="user-posts-channel">
+                <div class="user-posts-channel__image {% if not hasImage %}no-image{% endif %}" {% if hasImage %}style="background-image: url('{{ userImg }}');"{% endif %}></div>
+                <div class="user-posts-channel__content">
+                    <div class="user-posts-channel__headline">{{following.following['name'] }}</div>
+                    {% if not _Network.isNetworkClosed(network)%}
+                        {% set buttonClass = '' %}
+                        {% set btnStatus = "follow" %}
+                        {% set btnTxt = "Follow" %}
+                        {% if not _User.isGuest() and _User.isUserFollowing('writer', writer.following['id']) %}
+                            {% set buttonClass = 'active' %}
+                            {% set btnStatus = "unfollow" %}
+                            {% set btnTxt = "Unfollow" %}
+                        {% endif %}
+                        {% if not _User.isGuest() %}
+                            {% if( _User.getId() != following.following['id'])%}
+                                <a class="button button--sm button--outline FollowProfileUser {{buttonClass}}" data-guid="{{following.following['guid']}}" data-status="{{btnStatus}}">{{btnTxt}}</a>
+                            {% endif %}
+                        {% else %}
+                            <a class="button button--sm button--outline forceLoginModal">Follow</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+
+
+
+

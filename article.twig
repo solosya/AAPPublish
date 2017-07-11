@@ -1,0 +1,134 @@
+{# Article Twig template #} 
+{{ set(this, 'title', article.title) }}
+
+{% set network = _Network.getNetworkData() %}
+
+{% set publisher = {height: 60, width: 600, name: network.title, logo: ''} %}
+{% if network.logoMedia | length > 0 %}
+    {% set publisher = publisher|merge({logo:_Media.getMediaUrl(network.logoMedia, publisher.width, publisher.height, {'crop': 'lpad'} )})%}
+{% endif %}
+
+{{this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'})}}
+
+{{this.registerJs("HomeController.article();")}}
+<div itemscope itemtype="http://schema.org/NewsArticle">
+<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="https://google.com/article"/>
+<meta itemprop="url" content="{{article.url}}">
+<meta itemprop="dateModified" content="{{article.updatedAt}}">
+{% if publisher.logo is not empty %}
+<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+    <meta itemprop="name" content="{{publisher.name}}"/>
+    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <meta itemprop="url" content="{{publisher.logo}}"/>
+        <meta itemprop="width" content="{{publisher.width}}"/>
+        <meta itemprop="height" content="{{publisher.height}}"/>
+    </div>
+</div>
+{% endif %}
+<div class="article">
+    <div class="article__image_container">
+        <div class="article__image {% if article.media | length <= 0 %} article__no-image{% endif %}">
+            {% if article.media | length > 0 %}
+                <div class="slides">
+                    {% for media in article.media %}
+                        <div class="slide lazyload-remove" itemprop="image" itemscope itemtype="https://schema.org/ImageObject" data-thumbnail="{{media.path}}" data-original="{{media.path}}" style="background-image: url({{media.path}})">
+                            <meta itemprop="url" content="{{media.path}}">
+                            <meta itemprop="height" content="{{media.height}}">
+                            <meta itemprop="width" content="{{media.width}}">
+                            {% if media.type == 'video' %} 
+                                {% set mediaUrl = "" %}
+                                {% if media.isSystemVideo == 'TRUE'%}
+                                    {% set mediaUrl = _Media.getMediaVideoUrl(media, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
+                                    <a href="javascript:void(0)" itemprop="video" class="video-overlay" data-source="{{media.source}}" data-url="{{mediaUrl}}"  data-video-id="{{media.videoId}}" data-poster="{{media.path}}" data-caption="{{article.title | raw}}">
+                                        <div class="icons">
+                                            <div class="icon"><i class="fa fa-play"></i></div>
+                                        </div> 
+                                        <iframe class="slick-video" src="{{mediaUrl}}?autoplay=0"  frameborder="0" allowfullscreen></iframe>
+                                    </a>
+                                {% else %}
+                                    {% if media.source == 'youtube' %}
+                                        {% set mediaUrl = "https://www.youtube.com/embed/" ~ media.videoId  %}
+                                    {% else %}
+                                        {% set mediaUrl = "http://player.vimeo.com/video/" ~ media.videoId  %}
+                                    {% endif %}
+                                    <a href="javascript:void(0)" itemprop="video" class="video-overlay" data-source="{{media.source}}" data-url="{{mediaUrl}}"  data-video-id="{{media.videoId}}" data-poster="{{media.path}}" data-caption="{{article.title | raw}}">
+                                        <iframe class="slick-video" src="{{mediaUrl}}" frameborder="0" allowfullscreen></iframe>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="article__header">
+        <div class="article__header-text">
+            <a href="{{ article.blog['url'] }}" class="article__channel">{{ article.label | capitalize }}</a>
+            <div class="article__headline" itemprop="headline">{{article.title}}</div>
+        </div>
+    </div>
+    <div class="article__info_container">
+        <div class="article__info">
+            <a href="{{_AppHelper.buildUrl('profile/user-profile',{name: Html.encode(article.createdBy['username'])})}}" class="article__info_author-image" style="background-image:url('{{_Media.getMediaUrl(article.createdBy['media'], 100, 100, {crop:'thumb', radius: 'max', gravity:'face',type:'user'})}}');height: 56px; width: 56px; background-size: cover; display: inline-block; border-radius: 50%;"></a>
+            <a href="{{_AppHelper.buildUrl('profile/user-profile',{name: Html.encode(article.createdBy['username'])})}}" class="article__info_author" itemprop="name">By {{article.createdBy['displayName'] | capitalize}}</a>
+            
+            {% if not _Network.isNetworkClosed(network)%}
+                {% set status = 'follow' %}
+                {% set text = 'Follow' %}
+                {% if not _User.isGuset() and _User.isUserFollowing('blog', article.blog['id'])%}
+                    {% set status = 'unfollow' %}
+                    {% set text = 'Unfollow' %}
+                {% endif %}
+
+                {% set isUserFollowing = 'FALSE' %}
+                {% if not _User.isGuest() %}
+                    {% set isUserFollowing = _User.isUserFollowing('writer', article.createdBy['id'])  %}
+                {% endif %}
+                {% if _User.isGuest() %}
+                    <a href="javascript:;" class="article__info_follow button button--outline button--sm forceLoginModal">Follow</a>
+                {% elseif article.createdBy['id'] != _User.getId() %}
+                    {% set status = 'follow' %}
+                    {% if isUserFollowing %}
+                        {% set status = 'unfollow' %}
+                    {% endif %}
+                    <a href="javascript:void(0);" class="article__info_follow button button--outline button--sm followArticleBtn"  data-guid="{{article.createdBy['guid']}}" data-status="{{status}}">{{ (isUserFollowing == 'TRUE') ? 'Unfollow' : 'Follow' }}</a>
+                {% endif%}
+            {% endif%}
+            
+            <div class="article__info_tabs">
+                {% set readingTime = Helper.getEstimatedReadingTime(article.content)%}
+                <div class="article__info_tab">{{Helper.renderReadingTime(readingTime) | raw}}</div>
+                <div class="article__info_tab">{{article.publishedDate}}</div>
+                {% if network.thirdPartyIntegrations['disqus'] | length > 0 and network.thirdPartyIntegrations['disqus']['shortName'] != '' %}
+                    <a href="javascript:void(0);" class="article__info_tab article__info_tab--comments">{{article.total['comment']}} Comments</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="article__container">
+        <div class="article__social-links">
+            <a href="http://www.facebook.com/sharer/sharer.php?u={{article.url}}" target="_blank"><i class="fa fa-facebook-f"></i></a>
+            <a href="http://twitter.com/intent/tweet?status={{article.url}}" target="_blank"><i class="fa fa-twitter"></i></a>
+            <a href="https://plus.google.com/share?url={{article.url}}" target="_blank"><i class="fa fa-google"></i></a>
+        </div>
+        <div class="article__content">
+            <div class="article__intro">
+                {{article.title | raw}}
+            </div>
+            {{article.content | raw}}
+            <div class="article__comments">
+                <!-- Disqus Plugin Render Here -->
+                {% if network.thirdPartyIntegrations['disqus'] | length > 0 and network.thirdPartyIntegrations['disqus']['shortName'] != '' %}
+                    {{this.render("partials/article/_disqus_comments.twig", {disqus: network.thirdPartyIntegrations['disqus'], userId: article.createdBy['id'], url:article.url, articleId: article.id}) | raw}}
+                {% endif %}
+                <!-- End Disqus Block -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Suggested Article Here -->
+{{this.render("partials/article/_popular_articles.twig", {articleId: article.id, network: network}) | raw }}
+</div>

@@ -1,0 +1,34 @@
+{% if myFollowers | length > 0 %}
+    {% for follower in myFollowers %}
+        {% set imgWidth = 290 %}
+        {% set imgHeight = 80 %}
+        {% set hasImage = (follower.follower['media'] is defined and follower.follower['media']['path'] != '') ? 1 : 0 %}
+        {% if hasImage %}
+            {% set userImg = _Media.getMediaUrl(follower.follower['media'],imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces'} ) %}
+        {% endif %}
+        <div class="col-quarter">
+            <div class="user-posts-channel">
+                <div class="user-posts-channel__image {% if not hasImage %}no-image{% endif %}" {% if hasImage %}style="background-image: url('{{ userImg }}');"{% endif %}></div>
+                <div class="user-posts-channel__content">
+                    <div class="user-posts-channel__headline">{{follower.follower['name'] }}</div>
+                    {% if not _Network.isNetworkClosed(network)%}
+                        {% if not _User.isGuest() %}
+                            {% set btnStatus = "follow" %}
+                            {% set btnTxt = "Follow" %}
+                            {% if  _User.isUserFollowing('writer', follower.follower['id']) %}
+                                {% set buttonClass = 'active' %}
+                                {% set btnStatus = "unfollow" %}
+                                {% set btnTxt = "Unfollow" %}
+                            {% endif %}
+                            {% if( _User.getId() != follower.follower['id'])%}
+                                <a class="button button--sm button--outline FollowProfileUser {{buttonClass}}" data-guid="{{follower.follower['guid']}}" data-status="{{btnStatus}}">{{btnTxt}}</a>
+                            {% endif %}
+                        {% else %}
+                            <a class="button button--sm button--outline forceLoginModal">Follow</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

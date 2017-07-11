@@ -1,0 +1,91 @@
+.shops-slider {
+  height: 194px;
+  margin: auto;
+  padding: 0 15px;
+  // Overwriting container;
+  width: 95%;
+  @include tablet {
+    width: 90%;
+    margin-bottom: 50px;
+  }
+  @include desktop {
+    width: 1050px;
+  }
+  @include desktop-lg {
+    width: 1350px;
+  }
+  margin-bottom: 30px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  &__heading-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 31px;
+    text-transform: uppercase;
+    margin-bottom: 27px;
+    @include tablet {
+      margin: 56px auto 51px;
+    }
+  }
+  &__icon {
+    margin-right: 12px;
+  }
+  &__heading {
+    @include text-md($font-multiplier: 1.55, $line-height: 1.25, $letter-spacing: 1.6px, $color: $heading-text);
+  }
+  &__slide {
+    height: 100%;
+    display: flex!important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 17px;
+    cursor: pointer;
+    &:hover .button {
+      background-color: $theme-color;
+      color: white;
+    }
+  }
+  &__slide-container {
+    height: 100%;
+    display: flex!important;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 3px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.05);
+    border: solid 1px #f2f2f2;
+    padding: 39px 30px 24px;
+    text-align: left;
+  }
+  &__title {
+    @include text-sm($font-multiplier: 1.22, $line-height: 0.91, $color: $heading-text, $letter-spacing: 0.3px);
+    margin-bottom: 12px;
+  }
+  &__place {
+    font-family: $text-font-family;
+    @include text-sm($font-multiplier: 0.66, $font-weight: 400, $line-height: 1.33, $letter-spacing: -0.2px, $color: #5c5656);
+  }
+  &__button-wrap {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 40px;
+    @include tablet {
+      margin-bottom: 55px;
+    }
+  }
+  .button {
+    margin-top: auto;
+  }
+  .slick-track {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .slick-list {
+    width: 100%;
+    margin: 0 auto;
+  }
+}

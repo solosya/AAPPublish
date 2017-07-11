@@ -1,0 +1,208 @@
+.product {
+  &__header {
+    @extend .container;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 40px 10px 32px;
+    @include tablet {
+      padding: 82px 20px 32px;
+    }
+    @include desktop {
+      padding: 82px 0px 32px;
+    }
+    &_link {
+      @include text-md($color: $body-text, $font-multiplier: 0.667, $line-height: 0.92, $letter-spacing: 0.1px, $font-weight: 500);
+      .fa {
+        margin-right: 6px;
+        font-size: 16px;
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
+  &__image-container {
+    width: 100%;
+    @include tablet-lg {
+      width: 50%;
+      height: 100%;
+    }
+  }
+  &__image-slider {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    max-height: 530px;
+    margin-bottom: 50px;
+    cursor: pointer;
+    @include tablet {
+      height: 620px;
+      max-height: 620px;
+    }
+    &_image {
+      width: 100%;
+      height: 500px;
+      @include image_background();
+      @include tablet {
+        height: 700px;
+      }
+    }
+    .slick-prev,
+    .slick-next {
+      border: none;
+      position: absolute;
+      top: 48%;
+      text-indent: -9999em;
+      width: 18px;
+      height: 31px;
+      z-index: 1;
+      background-size: cover;
+    }
+    .slick-prev {
+      left: 5%;
+      background-image: url('/static/images/icons/arrow-previous-black.svg');
+    }
+    .slick-next {
+      right: 5%;
+      background-image: url('/static/images/icons/arrow-next-black.svg');
+    }
+  }
+  &__image-slider-nav {
+    &_image {
+      @include image_background();
+      flex-shrink: 0;
+      width: 140px!important;
+      height: 100px;
+      margin: 0px 12px 12px 0px;
+      cursor: pointer;
+    }
+    .slick-list {
+      padding: 0px!important; // Overrides inline padding styling on element.
+    }
+    .slick-track {
+      width: 100%!important; // Overrides inline width styling on element.
+    }
+  }
+  &__item {
+    @extend .container;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 10px;
+    margin-bottom: 70px;
+    @include tablet {
+      padding: 0px 20px;
+    }
+    @include tablet-lg {
+      flex-direction: row;
+    }
+    @include desktop {
+      padding: 0px 0px;
+    }
+    &_content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      padding: 30px 0px;
+      flex-grow: 1;
+      @include mobile {
+        padding: 56px 0px;
+      }
+      @include tablet-lg {
+        width: 50%;
+        padding: 63px 100px 103px 32px;
+      }
+      @include desktop {
+        padding: 63px 100px 103px 73px;
+      }
+    }
+    &_title-container {
+      max-width: 370px;
+      margin-bottom: 70px;
+    }
+    &_category {
+      @include text-md($color: rgba(32, 32, 32, 0.8), $font-multiplier: 0.667, $letter-spacing: 0.8px, $font-weight: 500);
+      text-transform: uppercase;
+      margin-bottom: 15px;
+      width: 100%;
+      height: 15px;
+    }
+    &_title {
+      @include text-md($color: $heading-text, $font-multiplier: 2.334, $font-weight: 700, $line-height: 1, $letter-spacing: -0.5px);
+      margin-bottom: 20px;
+      width: 100%;
+    }
+    &_text {
+      @include text-md($color: $body-text, $line-height: 1.35, $font-multiplier: 1.112, $font-weight: 400);
+      font-family: $text-font-family;
+      margin-bottom: 43px;
+      height: 84px;
+      overflow: hidden;
+      width: 100%;
+    }
+    &_price {
+      @include text-md($color: #e25e6d, $font-multiplier: 2, $font-weight: 700, $line-height: 0.61, $letter-spacing: -0.4px);
+      width: 100%;
+      margin-bottom: 43px;
+    }
+    &_info {
+      display: flex;
+      flex-direction: column;
+    }
+    &_tabs {
+      display: flex;
+      width: 100%;
+      border-bottom: solid 1px #dcdbdb;
+      margin-bottom: 19px;
+    }
+    &_tab {
+      @include text-md($color: #5c5656, $font-multiplier: 1.223, $line-height: 1.14, $font-weight: 500, $letter-spacing: -0.3px);
+      @include transition(all $transition-duration ease);
+      margin-bottom: -1px;
+      padding: 0px 0px 8px;
+      cursor: pointer;
+      border-bottom: solid 2px transparent;
+      &:hover {
+        color: $heading-text;
+      }
+      &.active {
+        @include text-md($color: $heading-text, $font-multiplier: 1.223, $line-height: 1.14, $font-weight: 700, $letter-spacing: -0.3px);
+        border-color: #e25e6d;
+      }
+      &--details {
+        margin-right: 45px;
+      }
+      &--sizes {
+        margin-right: 45px;
+      }
+      &--shipping {
+      }
+    }
+    &_tabs-content {
+      display: flex;
+      width: 100%;
+    }
+    &_tab-content {
+      @include text-md($color: $body-text, $font-multiplier: 0.778, $line-height: 1.29, $font-weight: 400, $letter-spacing: -0.2px);
+      @include transition(all $transition-duration ease);
+      font-family: $text-font-family;
+      display: none;
+      height: 111px;
+      overflow: hidden;
+      @include mobile {
+        min-width: 370px;
+        width: 80%;
+      }
+      &.active {
+        display: block
+      }
+      &--details {
+      }
+      &--sizes {
+      }
+      &--shipping {
+      }
+    }
+  }
+}

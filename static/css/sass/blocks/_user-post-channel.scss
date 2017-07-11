@@ -1,0 +1,27 @@
+.user-posts-channel {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 10px;
+  @include tablet {
+    margin: 15px;
+  }
+  &__image {
+    @include image_background;
+    height: 60px;
+    width: 100%;
+    &.no-image {
+      background-color: #e25e6d;
+    }
+  }
+  &__content {
+    padding: 27px 20px 40px;
+  }
+  &__headline {
+    @include text-md($font-multiplier: 1.22, $line-height: 0.86, $letter-spacing: -0.3px, $color: $heading-text);
+    margin-bottom: 17px;
+  }
+}
+
+.channels > .heading {
+  margin: 80px 0 45px;
+}

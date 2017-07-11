@@ -1,0 +1,46 @@
+{# Search Twig template #}
+{{ set(this, 'title', 'Search - ' ~ search) }}
+{% set networkData = _Network.getNetworkData() %}
+
+{{this.registerJs("SearchController.listing();")}}
+
+{{ set(this, 'params', {search: true})  }}
+
+{% set limit = 20 %}
+{% set articles = _Search.searchArticles({'limit': limit, 'offset': 0, 'search': search}) %}
+{% set blog = _Blog.getBlog() %}
+{% set homeUrl = networkData.networkLogoLinkUrl %}
+
+<div class="search">
+    <div class="search__heading">
+        {{ articles|length }} Search results for:
+        <span class="search__query"> <i>{{search}}</i></span>
+    </div>
+    {% if articles|length %}
+        <div class="card-container">
+            <div class="card-row">
+                {% for article in articles %}
+                    {{this.render('partials/_single-article.twig', {article: article, containerClass: 'col-third'}) | raw}}
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="search__image">
+            <img src="{{networkData.templatePath}}/static/images/icons/error.svg" alt="image" />
+        </div>
+
+        <div class="search__error">
+            <h3 class="head">404</h3>
+            Sorry, we couldnt find what you were looking for
+        </div>
+        <a href="{{homeUrl}}" class="button search__button">Back to Homepage</a>
+    {% endif %}
+
+    <!-- Start Pagination block -->
+    {% if articles|length >= limit %}
+        <div class="text-center">
+            <button class="button button-xs loadMoreArticles"> <i class="fa fa-arrow-down"></i> Load More</button>
+        </div>
+    {% endif %}
+    <!-- End Pagination Block -->
+</div>

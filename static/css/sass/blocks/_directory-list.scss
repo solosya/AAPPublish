@@ -1,0 +1,83 @@
+.directory-list {
+  &__headline-container {
+    height: 400px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-top: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.no-image {
+      background-color: #e25e6d;
+    }
+    @include tablet {
+      height: 500px;
+      padding-top: 91px;
+    }
+    @include desktop {
+      height: 500px;
+      padding-top: 103px;
+    }
+  }
+  &__headline {
+    margin: 20px auto 0;
+    max-width: 100%;
+    flex: 1 0 100%;
+    padding: 0 15px;
+    @include tablet {
+      @include text-lg();
+    }
+    &_text {
+      @include text-lg($font-multiplier: 3.05);
+      text-shadow: 0 0 12px rgba(32, 32, 32, 0.5);
+      text-align: center;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  }
+  &__sub-headline {
+    margin: 60px auto 45px;
+    @include text-md($font-multiplier: 1.55, $line-height: 1.21, $color: $heading-text, $letter-spacing: 0px);
+    text-align: center;
+    width: 100%;
+    padding: 0 15px;
+    max-width: 573px;
+    @include tablet {
+      margin: 98px auto 69px;
+    }
+  }
+  &__content {
+    .card-container {
+      margin-bottom: 65px;
+      @include tablet {
+        margin-bottom: 104px;
+      }
+      @include desktop {
+        width: 1050px;
+      }
+      @include desktop-lg {
+        width: 1350px;
+      }
+    }
+    .col-third {
+      @include desktop {
+        flex: 0 0 33.3333%;
+      }
+    }
+    &.card-container {
+      margin-bottom: 50px;
+      @include tablet {
+        margin-bottom: 80px;
+      }
+    }
+  }
+  .additional-articles__header {
+    border-top: solid 2px #e6e6e6;
+    padding-top: 35px;
+    margin-top: 0;
+    margin-bottom: 25px;
+  }
+}

@@ -1,0 +1,30 @@
+{% if myBlogs | length > 0 %}
+    {% for blogs in myBlogs %}
+        {% set blog = blogs['blog']%}
+        {% set hasImage = (blog.media['thumb'] is defined and blog.media['thumb']['path'] != '') ? 1 : 0 %}
+        <div class="col-quarter">
+            <div class="user-posts-channel">
+                <div class="user-posts-channel__image {% if not hasImage %}no-image{% endif %}" {% if hasImage %}style="background-image: url('{{ blog.media['thumb']['path'] }}');"{% endif %}></div>
+                <div class="user-posts-channel__content">
+                    <div class="user-posts-channel__headline">{{blog.title | raw}}</div>
+                    {% if not _Network.isNetworkClosed(network)%}
+                        {% set buttonText = 'Follow' %}
+                        {% set btnStatus = "follow" %}
+                        {% set btnClass = "" %}
+                        {% if not _User.isGuest() and _User.isUserFollowing('blog', blog.id) %}
+                            {% set buttonText = 'Unfollow' %}
+                            {% set btnStatus = "unfollow" %}
+                            {% set btnClass = "active" %}
+                        {% endif %}
+
+                        {% if not _User.isGuest()  %}
+                            <a class="button button--sm button--outline FollowUnfollowBlog" href="javascript:void(0);" data-guid="{{blog.guid}}" data-status="{{btnStatus}}">{{buttonText}}</a>
+                        {% else %}
+                            <a class="button button--sm button--outline forceLoginModal" href="javascript:void(0);">{{buttonText}}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

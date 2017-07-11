@@ -1,0 +1,164 @@
+.footer {
+    background-color: #202020;
+    padding: 35px 0px 42px;
+    @include mobile {
+        padding: 53px 0px 59px;
+    }
+    &__container {
+        @extend .container;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        flex-direction: column;
+        margin-bottom: 25px;
+        padding: 0px 10px;
+        @include mobile {
+            padding: 0px 20px;
+            flex-direction: row;
+        }
+        @include desktop {
+            padding: 0px;
+        }
+    }
+    &__left {
+    }
+    &__logo {
+        display: flex;
+        align-items: center; 
+        height: auto;
+        max-height: 50px;
+        margin-bottom: 50px;
+        svg, img {
+            height: auto;
+            max-height: 100%;
+        }
+    }
+    &__navigation {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-self: flex-start;
+        max-height: 120px;
+        max-width: 200px;
+        margin-bottom: 27px;
+        @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+            margin-bottom: 100px;
+        }
+        @include tablet-lg {
+            flex-direction: row;
+            max-height: 100%;
+            max-width: 100%;
+        }
+        &_link {
+            @include text-md($color: $footer-text, $font-weight: 500, $font-multiplier: 0.889, $letter-spacing: 1px);
+            text-transform: uppercase;
+            margin: 0px 28px 12px 0px;
+        }
+        &_more {
+            position: relative;
+            @include text-md($color: $footer-text, $font-weight: 500, $font-multiplier: 0.889, $letter-spacing: 1px);
+            text-transform: uppercase;
+            cursor: pointer;
+            z-index: 2;
+            @include transition(all $transition-duration ease);
+            &:hover {
+                color: $theme-color;
+            }
+        }
+        &_more-box {
+            position: absolute;
+            top: 30px;
+            display: flex;
+            flex-direction: column;
+            background-color: #202020;
+            border: 1px solid rgba($footer-text, 0);
+            max-height: 0px;
+            overflow: hidden;
+            @include transition(all $transition-duration ease);
+            &.active {
+                border: 1px solid rgba($footer-text, 0.2);
+                max-height: 300px;
+                z-index: 2;
+            }
+        }
+        &_more-link {
+            @include text-md($color: $footer-text, $font-weight: 500, $font-multiplier: 0.889, $letter-spacing: 1px);
+            text-transform: uppercase;
+            padding: 5px 10px;
+            border-bottom: 1px solid rgba($footer-text, 0.2);
+            &:hover {
+                background: rgba($footer-text, 0.1);
+            }
+        }
+    }
+    &__right {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        margin: 0px 0px 43px;
+        @include mobile {
+            align-items: right;
+            text-align: right;
+            margin: 40px 0px 43px;
+        }
+        @include desktop {
+            align-items: flex-end;
+            > a:last-child {
+                margin-bottom: 0;
+            }
+        }
+        .social-links {
+            margin: 0px 0px 10px -5px;
+            @include mobile {
+                margin: 0px -7px 10px 0px;
+            }
+            @include desktop {
+                margin: 0px 0 10px 0px;
+            }
+            .fa {
+                width: 24px;
+                background: none;
+                color: $footer-text;
+                @include desktop {
+                    text-align: right;
+                }
+            }
+        }
+    }
+    &__additional-link {
+        @include text-md($font-weight: 500, $color: $footer-text, $font-multiplier: 0.889, $line-height: 1.73);
+        font-family: $text-font-family;
+        margin-bottom: 5px;
+    }
+    &__copyright {
+        flex: 1 0 100%;
+        @include text-md($font-weight: 500, $color: $white, $font-multiplier: 0.723, $line-height: 1.73, $letter-spacing: -0.1);
+        font-family: $text-font-family;
+    }
+    &.theme-color {
+        background-color: $theme-color;
+        .footer__navigation_more-box {
+            border-color: transparent;
+            background: rgba($white, 0);
+            &.active {
+                background: rgba($white, 0.1);
+                border-color: rgba($white, 0.7);
+            }
+        }
+        .footer__navigation_more-link {
+            &:hover {
+                color: $white;
+            }
+        }
+        .footer__navigation_more {
+            &:hover {
+                color: $white;
+            }
+        }
+        .footer__additional-link {
+            &:hover {
+                color: rgba($white, 0.5);
+            }
+        }
+    }
+}

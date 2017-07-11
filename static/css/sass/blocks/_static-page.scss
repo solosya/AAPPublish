@@ -1,0 +1,57 @@
+.static-page {
+  margin-bottom: 65px;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+    padding: 150px 0px 80px;
+    @include tablet {
+      padding-top: 190px;
+    }
+    &_text {
+      flex-direction: column;
+      align-items: center;
+      padding: 0 10px;
+      @include tablet {
+        padding: 0 20px;
+      }
+      @include desktop {
+        padding: 0;
+      }
+      max-width: 769px;
+      h1, h2, h3, h4, h5, h6 {
+        color: #353839;
+      }
+      p {
+        margin-bottom: 0px;
+      }
+    }
+  }
+  &__container {
+    @extend .container;
+    padding: 0px 15px;
+    max-width: 770px;
+    @include tablet {
+      padding: 0px 0px;
+    }
+    @include desktop-lg {
+      max-width: 1080px;
+    }
+  }
+  &__body {
+    margin-top: 104px;
+    margin-bottom: 158px;
+  }
+  &__related-title {
+    @include text-lg($color: $body-text, $font-multiplier: 2.445, $font-weight: 500, $line-height: 1.01);
+    text-align: center;
+    margin-bottom: 58px;
+  }
+  &__related-container {
+    margin-bottom: 120px;
+  }
+}

@@ -1,0 +1,13 @@
+{% if userOwnerBlogs | length > 0 %}
+    {% for blog in userOwnerBlogs %}
+        {% set hasImage = (blog.media['thumb'] is defined and blog.media['thumb']['path'] != '') ? 1 : 0 %}
+        <div class="col-quarter">
+            <div class="user-posts-channel">
+                <div class="user-posts-channel__image {% if not hasImage %}no-image{% endif %}" {% if hasImage %}style="background-image: url('{{ blog.media['thumb']['path'] }}');"{% endif %}></div>
+                <div class="user-posts-channel__content">
+                    <div class="user-posts-channel__headline">{{blog.title | raw}}</div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
