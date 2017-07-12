@@ -35,9 +35,9 @@
             <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css'>
         {% elseif primaryFont != "" %}
             <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css'>
-        {% if secFont != "" %}
-            <link href='https://fonts.googleapis.com/css?family={{secFont}}' rel='stylesheet' type='text/css'>
-        {% endif %}
+            {% if secFont != "" %}
+                <link href='https://fonts.googleapis.com/css?family={{secFont}}' rel='stylesheet' type='text/css'>
+            {% endif %}
         {% elseif secFont != "" %}
             <link href='https://fonts.googleapis.com/css?family={{secFont}}' rel='stylesheet' type='text/css'>
         {% endif %}

@@ -22,7 +22,7 @@ var gulp = require('gulp'),
 // BROWSER SYNC
 livereload({ start: true });
 browserSync.init({
-  proxy: "comish.dev"
+  proxy: "theme.aap.io"
 });
 
 gulp.task('styles', function(){
