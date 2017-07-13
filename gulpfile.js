@@ -1,31 +1,64 @@
 // Ah, Big Gulp's eh? Welp, see ya later.
-var gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    c = require('chalk'),
-    clean = require('gulp-clean'),
-    imagemin = require('gulp-imagemin'),
-    concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
-    jshint = require('gulp-jshint'),
-    map = require('map-stream'),
-    notify = require('gulp-notify'),
-    autoprefixer = require('gulp-autoprefixer'),
-    sass = require('gulp-sass'),
-    sourcemaps = require('gulp-sourcemaps'),
-    rename = require('gulp-rename'),
-    livereload = require('gulp-livereload'),
-    lr = require('tiny-lr'),
-    server = lr(),
-    browserSync = require('browser-sync').create(),
-    plumber = require('gulp-plumber');
+var gulp          = require('gulp'),
+    gutil         = require('gulp-util'),
+    // c             = require('chalk'),
+    // clean         = require('gulp-clean'),
+    // imagemin      = require('gulp-imagemin'),
+    concat        = require('gulp-concat'),
+    notify        = require('gulp-notify'),
+    autoprefixer  = require('gulp-autoprefixer'),
+    sass          = require('gulp-sass'),
+    sourcemaps    = require('gulp-sourcemaps'),
+    minifyCss     = require("gulp-clean-css"),
+    rename        = require('gulp-rename'),
+    livereload    = require('gulp-livereload'),
+    lr            = require('tiny-lr'),
+    server        = lr(),
+    browserSync   = require('browser-sync').create(),
+    plumber       = require('gulp-plumber'),
+    hasher        = require('gulp-hasher'),
+    buster        = require('gulp-cache-buster'),
+    runSequence   = require('run-sequence');
 
 // BROWSER SYNC
-livereload({ start: true });
-browserSync.init({
-  proxy: "theme.aap.io"
+// livereload({ start: true });
+// browserSync.init({
+//   proxy: "theme.aap.io"
+// });
+
+gulp.task('styles', function(callback) {
+  runSequence('sass', 'minify-css', 'cache', callback);
 });
 
-gulp.task('styles', function(){
+gulp.task('cache',  function() {
+  return gulp.src('layouts/main.twig')
+    .pipe(buster({
+      tokenRegExp: /\/(output\.min\.css)\?v=[0-9a-z]+/,
+      assetRoot: __dirname + '/static/deploy/',
+      hashes: hasher.hashes,
+    }))
+    .pipe(gulp.dest('layouts/'));
+});
+
+
+
+
+gulp.task('minify-css', function () {
+    return gulp.src([
+        './static/css/index.css',
+    ]) 
+    .pipe(rename({
+        suffix: '.min',
+        basename: "output"
+    }))
+    .pipe(minifyCss())
+    .pipe(gulp.dest('./static/deploy'))
+    .pipe(hasher());
+});
+
+
+
+gulp.task('sass', function(){
   gulp.src('static/css/sass/index.scss')
     .pipe(sourcemaps.init())
     .pipe(plumber())
@@ -35,7 +68,7 @@ gulp.task('styles', function(){
         debugInfo: true,
         lineNumbers: true,
         errLogToConsole: true,
-        onSuccess: function(){
+        onSuccess: function() {
           notify().write({ message: "SCSS Compiled successfully!" });
         },
         onError: function(err) {
@@ -50,11 +83,12 @@ gulp.task('styles', function(){
     .pipe(browserSync.stream());
 });
 
+
 gulp.task('reload', function () {
   browserSync.reload();
 })
 
-// Do the creep, ahhhhhhh! (http://youtu.be/tLPZmPaHme0?t=7s)
+
 gulp.task('watch', function() {
 
   // Listen on port 35729
