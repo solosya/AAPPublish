@@ -236,7 +236,7 @@
         overflow: hidden;
         @include text-lg($color: $white, $font-multiplier: 2.2, $line-height: 1.1);
         margin-bottom: 27px;
-        max-height: 250px;
+        // max-height: 250px;
         @include tablet {
             max-height: 295px;
         }
